@@ -2387,17 +2387,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 15%;
             z-index: 150;
             animation: fadeIn 0.3s ease;
         }
 
         .catch-prompt-text {
             font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--pokemon-yellow);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             animation: pulseText 0.8s ease-in-out infinite;
         }
 
@@ -2418,9 +2419,103 @@
         }
 
         .catch-hint {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #aaa;
-            margin-top: 15px;
+            margin-top: 10px;
+        }
+
+        /* Drag catch zone (mobile) */
+        .catch-target-zone {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border: 4px dashed var(--pokemon-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: targetPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes targetPulse {
+            0%, 100% { border-color: var(--pokemon-yellow); box-shadow: 0 0 20px rgba(255, 203, 5, 0.3); }
+            50% { border-color: #fff; box-shadow: 0 0 40px rgba(255, 203, 5, 0.6); }
+        }
+
+        .catch-target-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--pokemon-yellow);
+            text-align: center;
+        }
+
+        .catch-drag-ball {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 90px;
+            cursor: grab;
+            touch-action: none;
+            z-index: 160;
+            transition: transform 0.1s ease;
+        }
+
+        .catch-drag-ball:active {
+            cursor: grabbing;
+        }
+
+        .catch-drag-ball.dragging {
+            transform: scale(1.2);
+            transition: none;
+        }
+
+        .catch-drag-ball img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .catch-drag-hint {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #fff;
+            text-align: center;
+            animation: pulseText 1s ease-in-out infinite;
+        }
+
+        .catch-arrow {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--pokemon-yellow);
+            animation: arrowBounce 0.8s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(-20px); opacity: 0.5; }
+        }
+
+        /* Desktop hint */
+        .catch-desktop-hint {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: #666;
         }
 
         /* Pokeball throw animation */
@@ -4976,11 +5071,173 @@
             prompt.className = 'catch-prompt';
             prompt.id = 'catchPrompt';
             prompt.innerHTML = `
-                <div class="catch-prompt-text">TRYCK MELLANSLAG!</div>
-                <img src="Pokeball.png" alt="Pokéball" class="catch-pokeball-icon">
-                <div class="catch-hint">🎯 Kasta Pokéboll för att fånga!</div>
+                <div class="catch-prompt-text">FÅNGA DEN!</div>
+                <div class="catch-target-zone" id="catchTarget">
+                    <div class="catch-target-text">SLÄPP<br>HÄR!</div>
+                </div>
+                <div class="catch-arrow">⬆️</div>
+                <div class="catch-drag-ball" id="catchDragBall">
+                    <img src="Pokeball.png" alt="Pokéball">
+                </div>
+                <div class="catch-drag-hint">👆 DRA BOLLEN UPPÅT!</div>
+                <div class="catch-desktop-hint">💻 Desktop: tryck MELLANSLAG</div>
             `;
             document.body.appendChild(prompt);
+            
+            // Setup drag handlers
+            setupCatchDrag();
+        }
+        
+        // Setup drag functionality for catch
+        function setupCatchDrag() {
+            const ball = document.getElementById('catchDragBall');
+            const target = document.getElementById('catchTarget');
+            if (!ball || !target) return;
+            
+            let isDragging = false;
+            let startX, startY;
+            let ballRect = ball.getBoundingClientRect();
+            let originalLeft = ballRect.left + ballRect.width / 2;
+            let originalTop = ballRect.top + ballRect.height / 2;
+            
+            // Touch events
+            ball.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isDragging = true;
+                ball.classList.add('dragging');
+                const touch = e.touches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                ballRect = ball.getBoundingClientRect();
+                originalLeft = ballRect.left + ballRect.width / 2;
+                originalTop = ballRect.top + ballRect.height / 2;
+            }, { passive: false });
+            
+            ball.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+                
+                ball.style.position = 'fixed';
+                ball.style.left = (originalLeft + deltaX) + 'px';
+                ball.style.top = (originalTop + deltaY) + 'px';
+                ball.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                
+                // Check if near target
+                const targetRect = target.getBoundingClientRect();
+                const ballCenterX = touch.clientX;
+                const ballCenterY = touch.clientY;
+                const targetCenterX = targetRect.left + targetRect.width / 2;
+                const targetCenterY = targetRect.top + targetRect.height / 2;
+                
+                const distance = Math.sqrt(
+                    Math.pow(ballCenterX - targetCenterX, 2) + 
+                    Math.pow(ballCenterY - targetCenterY, 2)
+                );
+                
+                if (distance < 80) {
+                    target.style.borderColor = '#2ecc71';
+                    target.style.boxShadow = '0 0 40px rgba(46, 204, 113, 0.8)';
+                } else {
+                    target.style.borderColor = '';
+                    target.style.boxShadow = '';
+                }
+            }, { passive: false });
+            
+            ball.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                ball.classList.remove('dragging');
+                
+                // Check if dropped on target
+                const targetRect = target.getBoundingClientRect();
+                const touch = e.changedTouches[0];
+                const ballCenterX = touch.clientX;
+                const ballCenterY = touch.clientY;
+                const targetCenterX = targetRect.left + targetRect.width / 2;
+                const targetCenterY = targetRect.top + targetRect.height / 2;
+                
+                const distance = Math.sqrt(
+                    Math.pow(ballCenterX - targetCenterX, 2) + 
+                    Math.pow(ballCenterY - targetCenterY, 2)
+                );
+                
+                if (distance < 100) {
+                    // Success - trigger catch!
+                    attemptCatch();
+                } else {
+                    // Reset ball position
+                    ball.style.position = '';
+                    ball.style.left = '';
+                    ball.style.top = '';
+                    ball.style.transform = '';
+                    target.style.borderColor = '';
+                    target.style.boxShadow = '';
+                }
+            });
+            
+            // Mouse events for desktop testing
+            ball.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                isDragging = true;
+                ball.classList.add('dragging');
+                startX = e.clientX;
+                startY = e.clientY;
+                ballRect = ball.getBoundingClientRect();
+                originalLeft = ballRect.left + ballRect.width / 2;
+                originalTop = ballRect.top + ballRect.height / 2;
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+                
+                ball.style.position = 'fixed';
+                ball.style.left = (originalLeft + deltaX) + 'px';
+                ball.style.top = (originalTop + deltaY) + 'px';
+                ball.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                
+                // Check if near target
+                const targetRect = target.getBoundingClientRect();
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - (targetRect.left + targetRect.width / 2), 2) + 
+                    Math.pow(e.clientY - (targetRect.top + targetRect.height / 2), 2)
+                );
+                
+                if (distance < 80) {
+                    target.style.borderColor = '#2ecc71';
+                    target.style.boxShadow = '0 0 40px rgba(46, 204, 113, 0.8)';
+                } else {
+                    target.style.borderColor = '';
+                    target.style.boxShadow = '';
+                }
+            });
+            
+            document.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                ball.classList.remove('dragging');
+                
+                const targetRect = target.getBoundingClientRect();
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - (targetRect.left + targetRect.width / 2), 2) + 
+                    Math.pow(e.clientY - (targetRect.top + targetRect.height / 2), 2)
+                );
+                
+                if (distance < 100) {
+                    attemptCatch();
+                } else {
+                    ball.style.position = '';
+                    ball.style.left = '';
+                    ball.style.top = '';
+                    ball.style.transform = '';
+                    target.style.borderColor = '';
+                    target.style.boxShadow = '';
+                }
+            });
         }
         
         // Attempt to catch (called when SPACE is pressed)
