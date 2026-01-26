@@ -1064,6 +1064,80 @@
             transform: translateY(2px);
         }
 
+        /* Numeric keypad for touch devices */
+        .numpad-container {
+            display: none;
+            width: 100%;
+            max-width: 320px;
+            margin: 10px auto 0;
+        }
+
+        .numpad-container.visible {
+            display: block;
+        }
+
+        .numpad-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .numpad-btn {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.1rem;
+            width: 55px;
+            height: 48px;
+            border: 3px solid var(--pokemon-blue);
+            border-radius: 10px;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            color: white;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .numpad-btn:active {
+            transform: scale(0.95);
+            background: linear-gradient(145deg, #16213e, #1a1a2e);
+            border-color: var(--pokemon-yellow);
+        }
+
+        .numpad-btn.action-btn {
+            width: 85px;
+            font-size: 1.3rem;
+        }
+
+        .numpad-btn.backspace-btn {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-color: #c0392b;
+        }
+
+        .numpad-btn.enter-btn {
+            background: linear-gradient(145deg, var(--grass-green), #388E3C);
+            border-color: #2E7D32;
+        }
+
+        .numpad-btn.backspace-btn:active {
+            background: linear-gradient(145deg, #c0392b, #e74c3c);
+        }
+
+        .numpad-btn.enter-btn:active {
+            background: linear-gradient(145deg, #388E3C, var(--grass-green));
+        }
+
+        /* Hide submit button on touch devices when numpad is visible */
+        .touch-device .submit-btn {
+            display: none;
+        }
+
+        /* Make input readonly on touch to prevent system keyboard */
+        .touch-device .answer-input {
+            caret-color: transparent;
+        }
+
         /* Attack feedback */
         .attack-feedback {
             text-align: center;
@@ -3245,6 +3319,27 @@
                             autocomplete="off"
                         >
                         <button class="submit-btn" onclick="checkAnswer()">RÄKNA!</button>
+                    </div>
+                    <!-- Numeric keypad for touch devices -->
+                    <div class="numpad-container" id="numpadContainer">
+                        <div class="numpad-row">
+                            <button class="numpad-btn" onclick="numpadPress('1')">1</button>
+                            <button class="numpad-btn" onclick="numpadPress('2')">2</button>
+                            <button class="numpad-btn" onclick="numpadPress('3')">3</button>
+                            <button class="numpad-btn" onclick="numpadPress('4')">4</button>
+                            <button class="numpad-btn" onclick="numpadPress('5')">5</button>
+                        </div>
+                        <div class="numpad-row">
+                            <button class="numpad-btn" onclick="numpadPress('6')">6</button>
+                            <button class="numpad-btn" onclick="numpadPress('7')">7</button>
+                            <button class="numpad-btn" onclick="numpadPress('8')">8</button>
+                            <button class="numpad-btn" onclick="numpadPress('9')">9</button>
+                            <button class="numpad-btn" onclick="numpadPress('0')">0</button>
+                        </div>
+                        <div class="numpad-row">
+                            <button class="numpad-btn action-btn backspace-btn" onclick="numpadBackspace()">⌫</button>
+                            <button class="numpad-btn action-btn enter-btn" onclick="numpadEnter()">✓</button>
+                        </div>
                     </div>
                     <button class="hint-btn" id="hintBtn" onclick="showHint()" style="display: none;">💡 HJÄLP</button>
                     <div class="attack-feedback" id="attackFeedback"></div>
@@ -7699,11 +7794,93 @@
             });
         });
 
+        // ===== NUMERIC KEYPAD FOR TOUCH DEVICES =====
+        
+        // Detect if device has touch
+        function isTouchDevice() {
+            return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        }
+
+        // Initialize numpad for touch devices
+        function initNumpad() {
+            if (isTouchDevice()) {
+                // Add touch-device class to body
+                document.body.classList.add('touch-device');
+                
+                // Show numpad
+                const numpad = document.getElementById('numpadContainer');
+                if (numpad) {
+                    numpad.classList.add('visible');
+                }
+                
+                // Make input readonly to prevent system keyboard
+                const input = document.getElementById('answerInput');
+                if (input) {
+                    input.setAttribute('readonly', 'readonly');
+                    input.setAttribute('inputmode', 'none');
+                    
+                    // Prevent focus from showing keyboard
+                    input.addEventListener('focus', (e) => {
+                        e.target.blur();
+                    });
+                    
+                    // Allow tap to "activate" but not show keyboard
+                    input.addEventListener('click', (e) => {
+                        e.preventDefault();
+                    });
+                }
+            }
+        }
+
+        // Numpad button press
+        function numpadPress(digit) {
+            const input = document.getElementById('answerInput');
+            if (!input) return;
+            
+            // Limit to 3 digits (max 999)
+            if (input.value.length < 3) {
+                input.value = input.value + digit;
+            }
+            
+            // Visual feedback
+            input.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                input.style.transform = '';
+            }, 100);
+        }
+
+        // Numpad backspace
+        function numpadBackspace() {
+            const input = document.getElementById('answerInput');
+            if (!input) return;
+            
+            input.value = input.value.slice(0, -1);
+            
+            // Visual feedback
+            input.style.borderColor = '#e74c3c';
+            setTimeout(() => {
+                input.style.borderColor = '';
+            }, 150);
+        }
+
+        // Numpad enter (submit answer)
+        function numpadEnter() {
+            // Check which mode we're in and call appropriate function
+            if (bonusModeState.active) {
+                checkBonusAnswer();
+            } else if (dailyChallengeState.active) {
+                checkDailyAnswer();
+            } else {
+                checkAnswer();
+            }
+        }
+
         // Initialize
         loadStats();
         initBackground();
         updateDailyChallengeButton();
         updateContinueButton();
+        initNumpad();
     </script>
 </body>
 </html>
