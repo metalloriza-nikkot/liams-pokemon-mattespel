@@ -1000,12 +1000,19 @@
             font-weight: 600;
         }
 
+        .math-problem-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .math-problem {
             font-family: 'Press Start 2P', cursive;
             font-size: clamp(1.8rem, 7vw, 3rem);
             text-align: center;
             color: white;
-            padding: 15px;
             text-shadow: 3px 3px 0 var(--pokemon-blue);
         }
 
@@ -1015,7 +1022,6 @@
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 15px;
         }
 
         .answer-input {
@@ -1631,6 +1637,48 @@
 
         .pokemon-entry.defeated {
             border-color: var(--pokemon-blue);
+        }
+
+        /* Shiny Pokemon from Master Mode */
+        .pokemon-entry.shiny {
+            border: 3px solid gold;
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), var(--card-bg));
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            position: relative;
+        }
+
+        .pokemon-entry.shiny::before {
+            content: '⭐';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 1rem;
+            animation: shinyStar 1.5s ease-in-out infinite;
+        }
+
+        @keyframes shinyStar {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(15deg); }
+        }
+
+        .pokemon-entry.shiny .name {
+            color: gold;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Shiny catch display */
+        .shiny-catch-display {
+            position: relative;
+            display: inline-block;
+        }
+
+        .shiny-catch-display::after {
+            content: '✨';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.5rem;
+            animation: shinyStar 1s ease-in-out infinite;
         }
 
         .pokemon-entry .sprite {
@@ -2989,6 +3037,260 @@
             }
         }
 
+        /* === TELEFON LAYOUT (< 500px) === */
+        @media (max-width: 500px) {
+            /* Dölj titel under strid */
+            .touch-device .game-title {
+                display: none;
+            }
+
+            /* Kompakt header */
+            .trainer-info {
+                gap: 5px;
+                padding: 5px;
+                flex-wrap: nowrap;
+            }
+
+            .info-badge {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+            }
+
+            .info-badge.daily-badge {
+                display: none;
+            }
+
+            /* Kompakt nivåbanner */
+            .level-banner {
+                padding: 8px 15px;
+                margin-bottom: 5px;
+            }
+
+            .level-banner h2 {
+                font-size: 0.7rem;
+            }
+
+            .pokemon-counter {
+                font-size: 0.75rem;
+            }
+
+            /* Mindre battle-area */
+            .battle-scene {
+                padding: 8px;
+                margin: 0 5px;
+            }
+
+            /* Mindre Pokémon-bilder */
+            .pokemon-sprite {
+                font-size: 2.2rem;
+            }
+
+            .pokemon-sprite img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .pokemon-card {
+                padding: 5px;
+            }
+
+            .pokemon-name {
+                font-size: 0.6rem;
+            }
+
+            /* Kompakt VS-badge */
+            .vs-badge {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+
+            /* HP-bar mindre */
+            .hp-bar {
+                height: 8px;
+            }
+
+            .hp-bar-container {
+                width: 80px;
+            }
+
+            /* Dölj trainer-bild på mobil */
+            .touch-device .trainer-pokemon-display .trainer-image {
+                display: none;
+            }
+
+            /* Mattefråga + svarsfält på samma rad */
+            .math-problem-container {
+                padding: 8px 5px;
+                margin-bottom: 5px;
+            }
+
+            .problem-label {
+                font-size: 0.55rem;
+                margin-bottom: 5px;
+            }
+
+            .math-problem-row {
+                flex-wrap: nowrap;
+                gap: 5px;
+            }
+
+            .math-problem {
+                font-size: 1.2rem;
+            }
+
+            /* Kompakt svarsfält på touch */
+            .touch-device .answer-section {
+                gap: 0;
+            }
+
+            .touch-device .answer-input {
+                width: 55px;
+                padding: 5px 6px;
+                font-size: 1.1rem;
+                border-width: 2px;
+                border-radius: 8px;
+            }
+
+            /* Kompakt numpad */
+            .numpad-container {
+                margin-top: 8px;
+            }
+
+            .numpad-row {
+                gap: 4px;
+                margin-bottom: 4px;
+            }
+
+            .numpad-btn {
+                width: 48px;
+                height: 42px;
+                font-size: 1rem;
+                border-width: 2px;
+            }
+
+            .numpad-btn.action-btn {
+                width: 75px;
+            }
+
+            /* Mindre attack feedback */
+            .attack-feedback {
+                margin-top: 8px;
+                min-height: 50px;
+            }
+
+            .attack-name {
+                font-size: 0.7rem;
+            }
+
+            .feedback {
+                font-size: 0.8rem;
+            }
+
+            /* Dölj streak på mobil för att spara plats */
+            .streak-indicator {
+                display: none;
+            }
+
+            /* Evolution - kompakt för mobil */
+            .evolution-screen {
+                padding: 15px 10px;
+            }
+
+            .evolution-title {
+                font-size: 0.8rem;
+                margin-bottom: 5px;
+            }
+
+            .evolution-screen > p {
+                font-size: 0.75rem;
+                margin: 8px 0;
+            }
+
+            .evolution-animation {
+                gap: 10px;
+                margin: 10px 0;
+            }
+
+            .evo-sprite {
+                font-size: 2rem;
+            }
+
+            .evo-sprite img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .evo-arrow {
+                font-size: 1.2rem;
+            }
+
+            /* Ultimate evolution - kompakt */
+            .evolution-screen.ultimate {
+                padding: 15px 10px;
+            }
+
+            .evolution-screen.ultimate .evolution-title {
+                font-size: 0.75rem;
+            }
+
+            .evolution-screen.ultimate .evo-sprite {
+                font-size: 2rem;
+            }
+
+            .evolution-screen.ultimate .evo-sprite img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .evolution-screen .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+
+            /* Hint-knapp mindre */
+            .hint-btn {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+                margin-top: 5px;
+            }
+
+            /* Boss taunt kompakt */
+            .boss-taunt {
+                font-size: 0.65rem;
+                padding: 6px 10px;
+            }
+        }
+
+        /* === IPAD LAYOUT (500px - 900px) === */
+        @media (min-width: 501px) and (max-width: 900px) {
+            .game-title {
+                font-size: 1rem;
+            }
+
+            .pokemon-sprite img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .evolution-animation {
+                gap: 20px;
+            }
+
+            .evo-sprite {
+                font-size: 3.5rem;
+            }
+
+            .evo-sprite img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .numpad-btn {
+                width: 52px;
+                height: 45px;
+            }
+        }
+
         /* Shake animation */
         .shake {
             animation: shake 0.5s ease;
@@ -3308,18 +3610,20 @@
 
                 <div class="math-problem-container">
                     <div class="problem-label">⚡ MATTEKRAFT-ATTACK ⚡</div>
-                    <div class="math-problem" id="mathProblem">5 + 3 = ?</div>
-                    <div class="hint-display" id="hintDisplay" style="display: none;"></div>
-                    <div class="answer-section">
-                        <input 
-                            type="number" 
-                            class="answer-input" 
-                            id="answerInput" 
-                            placeholder="?"
-                            autocomplete="off"
-                        >
-                        <button class="submit-btn" onclick="checkAnswer()">RÄKNA!</button>
+                    <div class="math-problem-row">
+                        <div class="math-problem" id="mathProblem">5 + 3 =</div>
+                        <div class="answer-section">
+                            <input 
+                                type="number" 
+                                class="answer-input" 
+                                id="answerInput" 
+                                placeholder="?"
+                                autocomplete="off"
+                            >
+                            <button class="submit-btn" onclick="checkAnswer()">RÄKNA!</button>
+                        </div>
                     </div>
+                    <div class="hint-display" id="hintDisplay" style="display: none;"></div>
                     <!-- Numeric keypad for touch devices -->
                     <div class="numpad-container" id="numpadContainer">
                         <div class="numpad-row">
@@ -4145,7 +4449,8 @@
             startTime: null,
             hitsNeeded: 0,
             pokemon: null,
-            attempts: 0
+            attempts: 0,
+            isBonus: false
         };
 
         // Achievement definitions
@@ -4629,7 +4934,7 @@
                 gameState.currentOperator = 'subtraction';
             }
 
-            gameState.currentProblem = `${a} ${operator} ${b} = ?`;
+            gameState.currentProblem = `${a} ${operator} ${b} =`;
             gameState.currentAnswer = answer;
             gameState.currentNum1 = a;
             gameState.currentNum2 = b;
@@ -4640,8 +4945,8 @@
             document.getElementById('hintBtn').style.display = 'none';
             document.getElementById('hintDisplay').style.display = 'none';
 
-            // Display problem with colored operator
-            document.getElementById('mathProblem').innerHTML = `${a} <span class="${operatorClass}">${operator}</span> ${b} = ?`;
+            // Display problem with colored operator (no ? - it's in the input field)
+            document.getElementById('mathProblem').innerHTML = `${a} <span class="${operatorClass}">${operator}</span> ${b} =`;
         }
 
         // Update UI
@@ -5133,6 +5438,7 @@
             catchState.active = true;
             catchState.startTime = Date.now();
             catchState.pokemon = pokemon;
+            catchState.isBonus = false;
             catchState.attempts++;
             
             // Play thud sound
@@ -5442,8 +5748,16 @@
         function catchSuccess(bonusPoints, bonusText) {
             catchState.active = false;
             
-            const level = LEVELS[gameState.currentLevel];
             const pokemon = catchState.pokemon;
+            const isBonus = catchState.isBonus;
+            
+            // Get level info based on mode
+            let levelPoints;
+            if (isBonus) {
+                levelPoints = BONUS_LEVELS[bonusModeState.currentLevel].points;
+            } else {
+                levelPoints = LEVELS[gameState.currentLevel].points;
+            }
             
             // Play success sound
             playCatchSound('success');
@@ -5452,15 +5766,15 @@
             const dizzyStars = document.getElementById('dizzyStars');
             if (dizzyStars) dizzyStars.remove();
             
-            // Show success effects
+            // Show success effects - extra sparkle for shiny!
             const burst = document.createElement('div');
             burst.className = 'catch-success-burst';
-            burst.textContent = '✨⭐✨';
+            burst.textContent = pokemon.isShiny ? '🌟⭐🌟' : '✨⭐✨';
             document.body.appendChild(burst);
             
             const successText = document.createElement('div');
             successText.className = 'catch-success-text';
-            successText.textContent = 'FÅNGAD!';
+            successText.textContent = pokemon.isShiny ? 'SHINY FÅNGAD!' : 'FÅNGAD!';
             document.body.appendChild(successText);
             
             if (bonusText) {
@@ -5476,12 +5790,12 @@
             
             // Add to collection
             gameState.caughtPokemon.push(pokemon);
-            gameState.score += level.points + bonusPoints;
+            gameState.score += levelPoints + bonusPoints;
             
             // Play catch jingle
             const caughtCount = gameState.caughtPokemon.length;
             const isLastBeforeBoss = (gameState.currentLevel === 4 || gameState.currentLevel === 9);
-            if (caughtCount % 5 === 0 || isLastBeforeBoss) {
+            if (caughtCount % 5 === 0 || isLastBeforeBoss || isBonus) {
                 playJingle('catch');
             }
             
@@ -5490,27 +5804,78 @@
                 burst.remove();
                 successText.remove();
                 
-                document.getElementById('catchTitle').textContent = 'POKÉMON FÅNGAD!';
-                document.getElementById('caughtMessage').innerHTML = `Du fångade <span class="highlight">${pokemon.name}</span>!`;
-                
-                const caughtSprite = document.getElementById('caughtPokemonSprite');
-                if (pokemon.image) {
-                    caughtSprite.innerHTML = `<img src="${pokemon.image}" alt="${pokemon.name}" style="width: 100px; height: 100px; object-fit: contain;">`;
+                // Handle bonus mode differently
+                if (isBonus) {
+                    const level = BONUS_LEVELS[bonusModeState.currentLevel];
+                    
+                    document.getElementById('catchTitle').textContent = '⭐ SHINY POKÉMON FÅNGAD! ⭐';
+                    document.getElementById('caughtMessage').innerHTML = `Du fångade <span class="highlight">${pokemon.name}</span>!<br><span style="color: gold; font-size: 0.8rem;">✨ Sparad i Pokédex med guldram!</span>`;
+                    
+                    const caughtSprite = document.getElementById('caughtPokemonSprite');
+                    if (pokemon.image) {
+                        caughtSprite.innerHTML = `<div class="shiny-catch-display"><img src="${pokemon.image}" alt="${pokemon.name}" style="width: 100px; height: 100px; object-fit: contain;"></div>`;
+                    } else {
+                        caughtSprite.textContent = pokemon.emoji;
+                    }
+                    document.getElementById('levelPoints').textContent = levelPoints + bonusPoints;
+                    
+                    // Reset catch state
+                    catchState = { active: false, startTime: null, hitsNeeded: 0, pokemon: null, attempts: 0, isBonus: false };
+                    
+                    updateUI();
+                    
+                    // Show level complete, then continue bonus mode
+                    showScreen('levelCompleteScreen');
+                    
+                    // Override continue button for bonus mode
+                    document.querySelector('#levelCompleteScreen .btn').onclick = function() {
+                        // Check for evolution2
+                        if (level.evolution2After && !bonusModeState.hasEvolved2) {
+                            showEvolution2();
+                            return;
+                        }
+                        
+                        // Check if final bonus level
+                        if (level.isFinalBonus) {
+                            showBonusVictory();
+                            return;
+                        }
+                        
+                        // Next bonus level
+                        bonusModeState.currentLevel++;
+                        startBonusBattle();
+                    };
                 } else {
-                    caughtSprite.textContent = pokemon.emoji;
+                    // Normal mode
+                    const level = LEVELS[gameState.currentLevel];
+                    
+                    document.getElementById('catchTitle').textContent = 'POKÉMON FÅNGAD!';
+                    document.getElementById('caughtMessage').innerHTML = `Du fångade <span class="highlight">${pokemon.name}</span>!`;
+                    
+                    const caughtSprite = document.getElementById('caughtPokemonSprite');
+                    if (pokemon.image) {
+                        caughtSprite.innerHTML = `<img src="${pokemon.image}" alt="${pokemon.name}" style="width: 100px; height: 100px; object-fit: contain;">`;
+                    } else {
+                        caughtSprite.textContent = pokemon.emoji;
+                    }
+                    document.getElementById('levelPoints').textContent = levelPoints + bonusPoints;
+                    
+                    // Reset catch state
+                    catchState = { active: false, startTime: null, hitsNeeded: 0, pokemon: null, attempts: 0, isBonus: false };
+                    
+                    // Restore normal continue button
+                    document.querySelector('#levelCompleteScreen .btn').onclick = nextLevel;
+                    
+                    updateUI();
+                    showScreen('levelCompleteScreen');
                 }
-                document.getElementById('levelPoints').textContent = level.points + bonusPoints;
-                
-                // Reset catch state
-                catchState = { active: false, startTime: null, hitsNeeded: 0, pokemon: null, attempts: 0 };
-                
-                updateUI();
-                showScreen('levelCompleteScreen');
             }, 2000);
         }
         
         // Catch failed - Pokemon wakes up
         function catchFailed() {
+            const isBonus = catchState.isBonus;
+            
             // Play fail sound
             playCatchSound('fail');
             
@@ -5546,18 +5911,32 @@
                     }, 600);
                 }
                 
-                // Set up for continued battle
-                gameState.currentHits = LEVELS[gameState.currentLevel].hitsNeeded - catchState.hitsNeeded;
-                catchState.active = false;
-                
-                // Generate new problem and continue
-                setTimeout(() => {
-                    generateProblem();
-                    document.getElementById('answerInput').value = '';
-                    document.getElementById('answerInput').focus();
-                    gameState.isProcessing = false;
-                    updateUI();
-                }, 500);
+                // Set up for continued battle based on mode
+                if (isBonus) {
+                    gameState.currentHits = BONUS_LEVELS[bonusModeState.currentLevel].hitsNeeded - catchState.hitsNeeded;
+                    catchState.active = false;
+                    
+                    // Generate new bonus problem and continue
+                    setTimeout(() => {
+                        generateBonusProblem();
+                        document.getElementById('answerInput').value = '';
+                        document.getElementById('answerInput').focus();
+                        gameState.isProcessing = false;
+                        updateBonusUI();
+                    }, 500);
+                } else {
+                    gameState.currentHits = LEVELS[gameState.currentLevel].hitsNeeded - catchState.hitsNeeded;
+                    catchState.active = false;
+                    
+                    // Generate new problem and continue
+                    setTimeout(() => {
+                        generateProblem();
+                        document.getElementById('answerInput').value = '';
+                        document.getElementById('answerInput').focus();
+                        gameState.isProcessing = false;
+                        updateUI();
+                    }, 500);
+                }
             }, 1000);
         }
         
@@ -6583,7 +6962,7 @@
 
             document.getElementById('hintBtn').style.display = 'none';
             document.getElementById('hintDisplay').style.display = 'none';
-            document.getElementById('mathProblem').innerHTML = `${a} <span class="${operatorClass}">${operator}</span> ${b} = ?`;
+            document.getElementById('mathProblem').innerHTML = `${a} <span class="${operatorClass}">${operator}</span> ${b} =`;
         }
 
         // Check daily challenge answer
@@ -6918,7 +7297,7 @@
 
             document.getElementById('hintBtn').style.display = 'none';
             document.getElementById('hintDisplay').style.display = 'none';
-            document.getElementById('mathProblem').innerHTML = `${a} <span class="operator-mul">×</span> ${b} = ?`;
+            document.getElementById('mathProblem').innerHTML = `${a} <span class="operator-mul">×</span> ${b} =`;
         }
 
         // Check bonus answer (called from checkAnswer when in bonus mode)
@@ -7012,22 +7391,14 @@
         function defeatBonusPokemon() {
             const level = BONUS_LEVELS[bonusModeState.currentLevel];
             
-            showPokeballCatch();
-            
+            // Use catch mode for catchable Pokemon
             if (level.catchable) {
-                gameState.caughtPokemon.push(level.pokemon);
-                playJingle('catch');
-            }
-
-            gameState.score += level.points;
-
-            // Check for evolution2
-            if (level.evolution2After && !bonusModeState.hasEvolved2) {
-                setTimeout(() => {
-                    showEvolution2();
-                }, 1500);
+                enterBonusCatchMode(level.pokemon);
                 return;
             }
+            
+            // Non-catchable (final boss) - just continue
+            gameState.score += level.points;
 
             // Check if final bonus level
             if (level.isFinalBonus) {
@@ -7043,6 +7414,42 @@
             setTimeout(() => {
                 startBonusBattle();
             }, 1500);
+        }
+        
+        // Enter catch mode for bonus Pokemon (with shiny marking)
+        function enterBonusCatchMode(pokemon) {
+            // Mark as shiny (master mode catch)
+            const shinyPokemon = { ...pokemon, isShiny: true };
+            
+            catchState.active = true;
+            catchState.startTime = Date.now();
+            catchState.pokemon = shinyPokemon;
+            catchState.isBonus = true;
+            catchState.attempts++;
+            
+            // Play thud sound
+            playCatchSound('thud');
+            
+            // Make Pokemon fall
+            const enemyPokemon = document.getElementById('enemyPokemon');
+            const pokemonImg = enemyPokemon.querySelector('img');
+            if (pokemonImg) {
+                pokemonImg.classList.add('pokemon-fallen');
+            }
+            
+            // Add dizzy stars
+            const dizzyStars = document.createElement('div');
+            dizzyStars.className = 'dizzy-stars';
+            dizzyStars.id = 'dizzyStars';
+            dizzyStars.textContent = '⭐💫⭐';
+            enemyPokemon.style.position = 'relative';
+            enemyPokemon.appendChild(dizzyStars);
+            
+            // Show catch prompt after a short delay
+            setTimeout(() => {
+                showCatchPrompt();
+                playCatchSound('ping');
+            }, 800);
         }
 
         // Show second evolution
@@ -7277,7 +7684,7 @@
                 for (let i = startIdx; i < endIdx; i++) {
                     const p = gameState.caughtPokemon[i];
                     const div = document.createElement('div');
-                    div.className = 'pokemon-entry caught clickable';
+                    div.className = p.isShiny ? 'pokemon-entry caught shiny clickable' : 'pokemon-entry caught clickable';
                     div.onclick = () => showPokemonInfo(p);
                     
                     const spriteHtml = p.image 
@@ -7604,7 +8011,8 @@
                     startTime: null,
                     hitsNeeded: 0,
                     pokemon: null,
-                    attempts: 0
+                    attempts: 0,
+                    isBonus: false
                 };
                 
                 hintsUsedThisGame = false;
