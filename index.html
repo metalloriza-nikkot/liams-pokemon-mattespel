@@ -3246,6 +3246,23 @@
             opacity: 0.85;
         }
 
+
+        /* ===== Svåra tal (föräldravy) ===== */
+        .tricky-facts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 8px 0; }
+        .tricky-fact {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 6px 10px;
+            text-align: center;
+            min-width: 84px;
+        }
+        .tricky-fact .fact { font-family: 'Press Start 2P', cursive; font-size: 0.75rem; color: var(--pokemon-yellow); }
+        .tricky-fact .fact-stat { font-size: 0.75rem; opacity: 0.85; margin-top: 4px; }
+        .tricky-fact.learned { border-color: var(--grass-green); }
+        .tricky-facts-empty { opacity: 0.8; font-size: 0.9rem; }
+        .tricky-facts-note { font-size: 0.75rem; opacity: 0.7; text-align: center; }
+
         /* === TELEFON LAYOUT (< 500px) === */
         @media (max-width: 500px) {
             /* Dölj titel under strid */
@@ -4224,6 +4241,12 @@
                             <div class="parent-stat-label">Subtraktion</div>
                         </div>
                     </div>
+                </div>
+
+                <div class="parent-stat-card">
+                    <div class="parent-stat-title">🎯 Tal Liam övar på</div>
+                    <div class="tricky-facts" id="trickyFacts"></div>
+                    <div class="tricky-facts-note">Tal han svarar fel på kommer tillbaka några tal senare. När han klarat ett tal tre gånger i rad räknas det som inlärt.</div>
                 </div>
 
                 <div class="parent-stat-card">
@@ -5440,6 +5463,7 @@
 
             // Lock input while processing
             gameState.isProcessing = true;
+            recordAnswer(userAnswer === gameState.currentAnswer);
 
             // Track stats
             if (gameState.currentOperator === 'addition') {
@@ -7342,6 +7366,7 @@
             }
 
             gameState.isProcessing = true;
+            recordAnswer(userAnswer === gameState.currentAnswer);
 
             if (userAnswer === gameState.currentAnswer) {
                 dailyChallengeState.currentHits++;
@@ -7677,6 +7702,7 @@
             }
 
             gameState.isProcessing = true;
+            recordAnswer(userAnswer === gameState.currentAnswer);
             bonusModeState.multiplicationTotal++;
 
             if (userAnswer === gameState.currentAnswer) {
@@ -8290,6 +8316,7 @@
             
             document.getElementById('statAddition').textContent = additionAcc + '%';
             document.getElementById('statSubtraction').textContent = subtractionAcc + '%';
+            renderTrickyFacts();
         }
 
         function resetAllStats() {
@@ -8306,6 +8333,9 @@
                     subtractionTotal: 0
                 };
                 saveStats();
+                factStats = {};
+                saveFactStats();
+                practice.queue = [];
                 updateParentStats();
                 alert('All statistik har nollställts.');
             }
@@ -8888,6 +8918,162 @@
             updateSpeakButton(active ? active.id : 'titleScreen');
         }
 
+
+
+        // ===== REPETITION AV MISSADE TAL =====
+        // A problem answered wrong on the first try comes back a few problems later.
+        // Per-fact stats persist between sessions, so facts that are still hard
+        // show up a bit more often. Three correct first tries in a row = learned.
+        const FACT_STATS_KEY = 'liamsFactStats';
+        const OP_SYMBOL = { addition: '+', subtraction: '−', multiplication: '×' };
+        const OP_CLASS = { addition: 'operator-add', subtraction: 'operator-sub', multiplication: 'operator-mul' };
+        const RETRY_AFTER = 2;        // other problems in between before a missed one returns
+        const WEAK_FACT_CHANCE = 0.2; // chance to serve an old tricky fact instead of a random one
+        const LEARNED_STREAK = 3;
+
+        let factStats = {};
+        try { factStats = JSON.parse(localStorage.getItem(FACT_STATS_KEY)) || {}; } catch (e) { factStats = {}; }
+        function saveFactStats() {
+            try { localStorage.setItem(FACT_STATS_KEY, JSON.stringify(factStats)); } catch (e) {}
+        }
+
+        const practice = { queue: [], served: 0, lastKey: null };
+
+        function factKey(a, op, b) { return `${a}${OP_SYMBOL[op] || '?'}${b}`; }
+        function currentFactKey() {
+            const { currentNum1: a, currentNum2: b, currentOperator: op } = gameState;
+            if (a === undefined || b === undefined || !op) return null;
+            return factKey(a, op, b);
+        }
+
+        function practiceMode() {
+            if (dailyChallengeState.active) return 'daily';
+            if (bonusModeState.active) return 'bonus';
+            return 'normal';
+        }
+
+        // Does this fact belong in the current level's number range?
+        function factFitsMode(f, mode) {
+            const { a, b, op } = f;
+            if (mode === 'normal') {
+                const level = LEVELS[gameState.currentLevel];
+                if (!level) return false;
+                const ops = level.type === 'mixed' ? ['addition', 'subtraction'] : [level.type];
+                if (!ops.includes(op)) return false;
+                if (op === 'subtraction') return a <= level.max1 && b <= level.max2 && a - b >= 1;
+                return a <= level.max1 && b <= level.max2;
+            }
+            if (mode === 'bonus') {
+                const level = BONUS_LEVELS[bonusModeState.currentLevel];
+                if (!level || op !== 'multiplication') return false;
+                if (level.type === 'multiplication') return b === level.multiplier && a <= level.max1;
+                return a <= level.max1 && b >= level.min2 && b <= level.max2;
+            }
+            if (mode === 'daily') {
+                if (op === 'addition') return a <= 12 && b <= 9;
+                if (op === 'subtraction') return a <= 14 && a - b >= 1;
+                return a <= 5 && b >= 2 && b <= 4;
+            }
+            return false;
+        }
+
+        function applyProblem(a, op, b) {
+            const answer = op === 'addition' ? a + b : op === 'subtraction' ? a - b : a * b;
+            gameState.currentProblem = `${a} ${OP_SYMBOL[op]} ${b} = ?`;
+            gameState.currentAnswer = answer;
+            gameState.currentNum1 = a;
+            gameState.currentNum2 = b;
+            gameState.currentOperator = op;
+            gameState.wrongOnCurrentProblem = 0;
+            gameState.hintUsed = false;
+            document.getElementById('hintBtn').style.display = 'none';
+            document.getElementById('hintDisplay').style.display = 'none';
+            document.getElementById('mathProblem').innerHTML = `${a} <span class="${OP_CLASS[op]}">${OP_SYMBOL[op]}</span> ${b} =`;
+        }
+
+        function takeDueFact(mode) {
+            const i = practice.queue.findIndex(f => f.dueAt <= practice.served && f.key !== practice.lastKey && factFitsMode(f, mode));
+            return i >= 0 ? practice.queue.splice(i, 1)[0] : null;
+        }
+
+        function pickTrickyFact(mode) {
+            const candidates = Object.entries(factStats)
+                .map(([key, st]) => ({ key, ...st }))
+                .filter(f => f.wrong > 0 && (f.streak || 0) < LEARNED_STREAK && f.key !== practice.lastKey &&
+                    !practice.queue.some(q => q.key === f.key) && factFitsMode(f, mode));
+            if (candidates.length === 0) return null;
+            const total = candidates.reduce((sum, f) => sum + f.wrong, 0);
+            let r = Math.random() * total;
+            for (const f of candidates) { r -= f.wrong; if (r <= 0) return f; }
+            return candidates[candidates.length - 1];
+        }
+
+        // Wrap a problem generator: serve due retries, sometimes old tricky facts,
+        // and never the exact same problem twice in a row.
+        function withPractice(generate) {
+            return function () {
+                const mode = practiceMode();
+                practice.served++;
+                generate.apply(this, arguments);
+                const retry = takeDueFact(mode) || (Math.random() < WEAK_FACT_CHANCE ? pickTrickyFact(mode) : null);
+                if (retry) {
+                    applyProblem(retry.a, retry.op, retry.b);
+                    gameState.isRetry = true;
+                } else {
+                    const waiting = () => practice.queue.some(f => f.key === currentFactKey());
+                    for (let tries = 0; (currentFactKey() === practice.lastKey || waiting()) && tries < 8; tries++) {
+                        generate.apply(this, arguments);
+                    }
+                    gameState.isRetry = false;
+                }
+                practice.lastKey = currentFactKey();
+            };
+        }
+        generateProblem = withPractice(generateProblem);
+        generateBonusProblem = withPractice(generateBonusProblem);
+        generateDailyProblem = withPractice(generateDailyProblem);
+
+        // Called once per submitted answer, before the game updates its own counters
+        function recordAnswer(correct) {
+            const key = currentFactKey();
+            if (!key) return;
+            if (gameState.wrongOnCurrentProblem > 0) return; // only the first try counts
+            const { currentNum1: a, currentNum2: b, currentOperator: op } = gameState;
+            const st = factStats[key] || (factStats[key] = { a, b, op, seen: 0, wrong: 0, streak: 0 });
+            st.seen++;
+            if (correct) {
+                st.streak = (st.streak || 0) + 1;
+            } else {
+                st.wrong++;
+                st.streak = 0;
+                st.lastWrong = Date.now();
+                if (!practice.queue.some(f => f.key === key)) {
+                    practice.queue.push({ key, a, b, op, dueAt: practice.served + RETRY_AFTER + 1 });
+                    if (practice.queue.length > 8) practice.queue.shift();
+                }
+            }
+            saveFactStats();
+        }
+
+        function renderTrickyFacts() {
+            const box = document.getElementById('trickyFacts');
+            if (!box) return;
+            const tricky = Object.values(factStats)
+                .filter(f => f.wrong > 0)
+                .sort((x, y) => ((x.streak || 0) >= LEARNED_STREAK) - ((y.streak || 0) >= LEARNED_STREAK) || y.wrong - x.wrong || (y.wrong / y.seen) - (x.wrong / x.seen))
+                .slice(0, 12);
+            if (tricky.length === 0) {
+                box.innerHTML = '<div class="tricky-facts-empty">Inga missade tal ännu 🎉</div>';
+                return;
+            }
+            box.innerHTML = tricky.map(f => {
+                const learned = (f.streak || 0) >= LEARNED_STREAK;
+                return `<div class="tricky-fact ${learned ? 'learned' : ''}">
+                    <div class="fact">${f.a} ${OP_SYMBOL[f.op]} ${f.b}</div>
+                    <div class="fact-stat">${learned ? '✅ inlärt' : `fel ${f.wrong} av ${f.seen}`}</div>
+                </div>`;
+            }).join('');
+        }
 
         // ===== HÖRNKNAPPAR I STRID (MOBIL) =====
         // On phones the fixed save/music/settings buttons covered the numpad.
