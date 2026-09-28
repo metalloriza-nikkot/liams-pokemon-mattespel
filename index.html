@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Pokémon Matte">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Liams Pokémon Matteäventyr</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -3662,7 +3670,7 @@
         <!-- Title Screen / Start Menu -->
         <div class="screen active" id="titleScreen">
             <div class="title-screen">
-                <img src="Startmeny.jpeg" alt="Liams Pokémon Matteäventyr" class="title-background">
+                <img src="Startmeny.webp" alt="Liams Pokémon Matteäventyr" class="title-background">
                 <div class="title-buttons">
                     <button class="btn btn-red start-game-btn" onclick="showProfessorDialog()">▶ START</button>
                     <button class="btn btn-green continue-btn" id="continueGameBtn" onclick="loadGame()" style="display: none;">
@@ -3735,7 +3743,7 @@
         <div class="screen" id="professorScreen">
             <div class="professor-dialog-screen">
                 <div class="dialog-character-container">
-                    <img src="Professor_Ek.png" alt="Professor Ek" class="dialog-character-image" id="professorDialogImage">
+                    <img src="Professor_Ek.webp" alt="Professor Ek" class="dialog-character-image" id="professorDialogImage">
                     <div class="dialog-character-name" id="professorDialogName">PROFESSOR EK</div>
                 </div>
                 <div class="boss-speech" id="professorSpeech">
@@ -3763,7 +3771,7 @@
         <!-- Story: Leaving Kalmar -->
         <div class="screen" id="storyLeavingKalmar">
             <div class="story-screen">
-                <img src="Liam_leaving_Kalmar_1x1.png" alt="Liam lämnar Kalmar" class="story-image">
+                <img src="Liam_leaving_Kalmar_1x1.webp" alt="Liam lämnar Kalmar" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🗺️ ÄVENTYRET BÖRJAR</div>
                     <p>Med sin nya Pokémon-partner vid sin sida lämnar Liam Kalmar och Professor Eks laboratorium.</p>
@@ -3777,7 +3785,7 @@
         <!-- Story: Dark Forest (before Boss 1) -->
         <div class="screen" id="storyDarkForest">
             <div class="story-screen">
-                <img src="Liam_sunset_forest_1x1.png" alt="Liam i skogen" class="story-image">
+                <img src="Liam_sunset_forest_1x1.webp" alt="Liam i skogen" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🌲 DEN MÖRKA SKOGEN</div>
                     <p>Liam har tränat hårt och vandrat långt. Nu börjar solen gå ned och skogen blir allt mörkare...</p>
@@ -3805,7 +3813,7 @@
         <!-- Story: Approaching Vissefjärda (after level 8) -->
         <div class="screen" id="storyApproaching">
             <div class="story-screen">
-                <img src="Liam_long_walk_1x1.png" alt="Liam vandrar mot Vissefjärda" class="story-image">
+                <img src="Liam_long_walk_1x1.webp" alt="Liam vandrar mot Vissefjärda" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🚶 PÅ VÄG MOT MÅLET</div>
                     <p>Efter segern mot Team Rocket fortsätter Liam sin resa. Skylten säger "Vissefjärda" - han närmar sig!</p>
@@ -3818,7 +3826,7 @@
         <!-- Story: Arena Arrival (after level 10, before Ellen) -->
         <div class="screen" id="storyArenaArrival">
             <div class="story-screen">
-                <img src="Pokemon_arena_1.png" alt="Pokémon-arenan i Vissefjärda" class="story-image">
+                <img src="Pokemon_arena_1.webp" alt="Pokémon-arenan i Vissefjärda" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🏟️ REGIONMÄSTERSKAPET</div>
                     <p>Äntligen! Liam har anlänt till Vissefjärda och den stora Pokémon-arenan!</p>
@@ -3833,7 +3841,7 @@
         <div class="screen" id="ellenIntroScreen">
             <div class="boss-intro ellen-intro">
                 <div class="dialog-character-container">
-                    <img src="trainer_Ellen.png" alt="Ellen" class="dialog-character-image" id="ellenDialogImage">
+                    <img src="trainer_Ellen.webp" alt="Ellen" class="dialog-character-image" id="ellenDialogImage">
                     <div class="dialog-character-name" id="ellenDialogName">ELLEN</div>
                 </div>
                 <div class="boss-speech ellen-speech" id="ellenSpeech">
@@ -3850,7 +3858,7 @@
         <!-- Story: Road to Finals (after Ellen, before Giovanni) -->
         <div class="screen" id="storyRoadToFinals">
             <div class="story-screen">
-                <img src="Liam_combat_arena.png" alt="Liam i arenan" class="story-image">
+                <img src="Liam_combat_arena.webp" alt="Liam i arenan" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🔥 MOT FINALEN</div>
                     <p>Liam kämpar sig vidare i turneringen. Match efter match vinner han med sin starka mattekraft!</p>
@@ -3865,7 +3873,7 @@
         <!-- Story: Arena for Final Boss (kept for compatibility) -->
         <div class="screen" id="storyArena">
             <div class="story-screen">
-                <img src="Pokemon_arena_1.png" alt="Pokémon-arenan i Vissefjärda" class="story-image">
+                <img src="Pokemon_arena_1.webp" alt="Pokémon-arenan i Vissefjärda" class="story-image">
                 <div class="story-text">
                     <div class="story-title">🏟️ FINALEN</div>
                     <p>Det är dags för den avgörande matchen!</p>
@@ -3896,7 +3904,7 @@
                     <div class="pokemon-display">
                         <div class="pokemon-card">
                             <div class="trainer-card">
-                                <img src="Liam_trainer.png" alt="Liam" class="liam-image battle" id="liamBattleImage">
+                                <img src="Liam_trainer.webp" alt="Liam" class="liam-image battle" id="liamBattleImage">
                                 <div class="pokemon-sprite" id="playerPokemon">⚡</div>
                             </div>
                             <div class="pokemon-name" id="playerName">PIKACHU</div>
@@ -3966,7 +3974,7 @@
         <!-- Level Complete Screen -->
         <div class="screen" id="levelCompleteScreen">
             <div class="level-complete">
-                <img src="Liam_trainer.png" alt="Liam" class="liam-image" style="width: 100px; height: 100px; margin-bottom: 10px;">
+                <img src="Liam_trainer.webp" alt="Liam" class="liam-image" style="width: 100px; height: 100px; margin-bottom: 10px;">
                 <div class="caught-pokemon" id="caughtPokemonSprite">🐛</div>
                 <h2 id="catchTitle">POKÉMON FÅNGAD!</h2>
                 <p id="caughtMessage">Du fångade <span class="highlight">CATERPIE</span>!</p>
@@ -3994,7 +4002,7 @@
         <div class="screen" id="bossIntroScreen">
             <div class="boss-intro">
                 <div class="dialog-character-container">
-                    <img src="Boss1_TR.png" alt="Karaktär" class="dialog-character-image" id="dialogCharacterImage">
+                    <img src="Boss1_TR.webp" alt="Karaktär" class="dialog-character-image" id="dialogCharacterImage">
                     <div class="dialog-character-name" id="dialogCharacterName">???</div>
                 </div>
                 <div class="boss-speech" id="bossSpeech">
@@ -4012,7 +4020,7 @@
         <div class="screen" id="victoryScreen">
             <div class="victory-screen">
                 <div class="confetti-container" id="confettiContainer"></div>
-                <img src="Liam_trainer_trophy.png" alt="Liam med pokal" class="liam-image large" style="width: 220px; height: auto; border: none; border-radius: 0; animation: celebrate 1s ease-in-out infinite;">
+                <img src="Liam_trainer_trophy.webp" alt="Liam med pokal" class="liam-image large" style="width: 220px; height: auto; border: none; border-radius: 0; animation: celebrate 1s ease-in-out infinite;">
                 <h2 class="victory-title">GRATTIS, LIAM!</h2>
                 <p style="font-size: 1.3rem;">Du är nu <span class="highlight">SMÅLÄNDSK POKÉMON MÄSTARE!</span></p>
                 
@@ -4340,11 +4348,11 @@
                 id: 'riolu',
                 name: 'RIOLU',
                 emoji: '🐕',
-                image: 'Riolu.png',
+                image: 'Riolu.webp',
                 type: 'Fighting',
                 typeColor: 'fighting',
-                evolution: { name: 'LUCARIO', emoji: '🦊', image: 'Lucario.png' },
-                evolution2: { name: 'MEGA LUCARIO', emoji: '💠', image: 'Lucario_mega.png' },
+                evolution: { name: 'LUCARIO', emoji: '🦊', image: 'Lucario.webp' },
+                evolution2: { name: 'MEGA LUCARIO', emoji: '💠', image: 'Lucario_mega.webp' },
                 attacks: {
                     normal: ['Snabb Spark!', 'Kraft Slag!', 'Aura Attack!'],
                     medium: 'Kraft Palm!',
@@ -4356,11 +4364,11 @@
                 id: 'charmander',
                 name: 'CHARMANDER',
                 emoji: '🦎',
-                image: 'Charmander.png',
+                image: 'Charmander.webp',
                 type: 'Fire',
                 typeColor: 'fire',
-                evolution: { name: 'CHARMELEON', emoji: '🔥', image: 'Charmeleon.png' },
-                evolution2: { name: 'CHARIZARD', emoji: '🐉', image: 'Charizard.png' },
+                evolution: { name: 'CHARMELEON', emoji: '🔥', image: 'Charmeleon.webp' },
+                evolution2: { name: 'CHARIZARD', emoji: '🐉', image: 'Charizard.webp' },
                 attacks: {
                     normal: ['Eldgnista!', 'Klor!', 'Eldstöt!'],
                     medium: 'Flammkastare!',
@@ -4372,11 +4380,11 @@
                 id: 'squirtle',
                 name: 'SQUIRTLE',
                 emoji: '🐢',
-                image: 'Squirtle.png',
+                image: 'Squirtle.webp',
                 type: 'Water',
                 typeColor: 'water',
-                evolution: { name: 'WARTORTLE', emoji: '🐢', image: 'Wartortle.png' },
-                evolution2: { name: 'BLASTOISE', emoji: '🐢', image: 'Blastoise.png' },
+                evolution: { name: 'WARTORTLE', emoji: '🐢', image: 'Wartortle.webp' },
+                evolution2: { name: 'BLASTOISE', emoji: '🐢', image: 'Blastoise.webp' },
                 attacks: {
                     normal: ['Vattenpistol!', 'Skalskydd!', 'Bubblor!'],
                     medium: 'Vattenfall!',
@@ -4388,11 +4396,11 @@
                 id: 'froakie',
                 name: 'FROAKIE',
                 emoji: '🐸',
-                image: 'Froakie.png',
+                image: 'Froakie.webp',
                 type: 'Water',
                 typeColor: 'water',
-                evolution: { name: 'FROGADIER', emoji: '🐸', image: 'Frogadier.png' },
-                evolution2: { name: 'GRENINJA', emoji: '🥷', image: 'Greeninja.png' },
+                evolution: { name: 'FROGADIER', emoji: '🐸', image: 'Frogadier.webp' },
+                evolution2: { name: 'GRENINJA', emoji: '🥷', image: 'Greeninja.webp' },
                 attacks: {
                     normal: ['Bubblor!', 'Snabbhopp!', 'Vattenpuls!'],
                     medium: 'Skumstråle!',
@@ -4404,11 +4412,11 @@
                 id: 'pichu',
                 name: 'PICHU',
                 emoji: '🐭',
-                image: 'Pichu.png',
+                image: 'Pichu.webp',
                 type: 'Electric',
                 typeColor: 'electric',
-                evolution: { name: 'PIKACHU', emoji: '⚡', image: 'Pikachu.png' },
-                evolution2: { name: 'RAICHU', emoji: '🐭', image: 'Raichu.png' },
+                evolution: { name: 'PIKACHU', emoji: '⚡', image: 'Pikachu.webp' },
+                evolution2: { name: 'RAICHU', emoji: '🐭', image: 'Raichu.webp' },
                 attacks: {
                     normal: ['Liten Stöt!', 'Gnistlek!', 'Statisk Chock!'],
                     medium: 'Åskblixt!',
@@ -4474,8 +4482,8 @@
                 min2: 1, max2: 2,
                 hitsNeeded: 3,
                 pokemonOptions: [
-                    { emoji: '🐛', name: 'CATERPIE', image: 'Caterpie.png' },
-                    { emoji: '🌱', name: 'BULBASAUR', image: 'Bulbasaur.png' }
+                    { emoji: '🐛', name: 'CATERPIE', image: 'Caterpie.webp' },
+                    { emoji: '🌱', name: 'BULBASAUR', image: 'Bulbasaur.webp' }
                 ],
                 points: 100,
                 catchable: true
@@ -4488,8 +4496,8 @@
                 min2: 1, max2: 3,
                 hitsNeeded: 3,
                 pokemonOptions: [
-                    { emoji: '🐦', name: 'PIDGEY', image: 'Pidgey.png' },
-                    { emoji: '🦆', name: 'PSYDUCK', image: 'Psyduck.png' }
+                    { emoji: '🐦', name: 'PIDGEY', image: 'Pidgey.webp' },
+                    { emoji: '🦆', name: 'PSYDUCK', image: 'Psyduck.webp' }
                 ],
                 points: 110,
                 catchable: true
@@ -4502,8 +4510,8 @@
                 min2: 1, max2: 4,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '🐀', name: 'RATTATA', image: 'Rattata.png' },
-                    { emoji: '🐰', name: 'SCORBUNNY', image: 'Scorbunny.png' }
+                    { emoji: '🐀', name: 'RATTATA', image: 'Rattata.webp' },
+                    { emoji: '🐰', name: 'SCORBUNNY', image: 'Scorbunny.webp' }
                 ],
                 points: 120,
                 catchable: true
@@ -4516,8 +4524,8 @@
                 min2: 2, max2: 5,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '🦋', name: 'BUTTERFREE', image: 'Butterfree.png' },
-                    { emoji: '🦇', name: 'NOIBAT', image: 'Noibat.png' }
+                    { emoji: '🦋', name: 'BUTTERFREE', image: 'Butterfree.webp' },
+                    { emoji: '🦇', name: 'NOIBAT', image: 'Noibat.webp' }
                 ],
                 points: 140,
                 catchable: true
@@ -4530,9 +4538,9 @@
                 min2: 2, max2: 6,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '🐝', name: 'BEEDRILL', image: 'Beedrill.png' },
-                    { emoji: '🦊', name: 'BRAIXEN', image: 'Braixen.png' },
-                    { emoji: '🌺', name: 'VENUSAUR', image: 'Venosaur.png' }
+                    { emoji: '🐝', name: 'BEEDRILL', image: 'Beedrill.webp' },
+                    { emoji: '🦊', name: 'BRAIXEN', image: 'Braixen.webp' },
+                    { emoji: '🌺', name: 'VENUSAUR', image: 'Venosaur.webp' }
                 ],
                 points: 160,
                 catchable: true
@@ -4544,10 +4552,10 @@
                 min1: 3, max1: 10,
                 min2: 2, max2: 7,
                 hitsNeeded: 5,
-                pokemon: { emoji: '😼', name: 'MEOWTH', image: 'Meowth.png' },
+                pokemon: { emoji: '😼', name: 'MEOWTH', image: 'Meowth.webp' },
                 points: 300,
                 isBoss: true,
-                bossImage: 'Boss1_TR.png',
+                bossImage: 'Boss1_TR.webp',
                 bossName: 'GRANSEN',
                 bossTheme: 'boss-battle-1',
                 bossTaunts: [
@@ -4558,25 +4566,25 @@
                     "Min Meowth, slå tillbaka!"
                 ],
                 bossDialogs: [
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Stopp där! 🛑' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Hehehe... Vem är DU som vågar gå in på Team Rockets territorium?' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Jag är Liam från Kalmar! Och jag tänker stoppa er!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Hahaha! En pojke som tror han är tuff?' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Jag är en av Team Rockets bästa tränare!' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Det spelar ingen roll. Jag är inte rädd för dig!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Du tror att du kan stoppa oss med lite... MATTE? 😈' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Min mattekraft är starkare än du tror!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Hahaha! Min Meowth kommer krossa dig!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR.png', text: 'Gör dig redo, pojke... för du kommer FÖRLORA!' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.png', text: 'Vi får se! Kom igen! 💪' }
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Stopp där! 🛑' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Hehehe... Vem är DU som vågar gå in på Team Rockets territorium?' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Jag är Liam från Kalmar! Och jag tänker stoppa er!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Hahaha! En pojke som tror han är tuff?' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Jag är en av Team Rockets bästa tränare!' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Det spelar ingen roll. Jag är inte rädd för dig!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Du tror att du kan stoppa oss med lite... MATTE? 😈' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Min mattekraft är starkare än du tror!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Hahaha! Min Meowth kommer krossa dig!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR.webp', text: 'Gör dig redo, pojke... för du kommer FÖRLORA!' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.webp', text: 'Vi får se! Kom igen! 💪' }
                 ],
                 victoryDialogs: [
-                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.png', text: 'V-vad?! Omöjligt! 😱' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.png', text: 'H-hur kunde du besegra min Meowth?!' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Jag sa ju att min mattekraft är stark!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.png', text: 'D-detta är inte över! Team Rocket kommer tillbaka!' },
-                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.png', text: '*springer iväg* 💨' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Ha! Det var det för Team Rocket! 😄' }
+                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.webp', text: 'V-vad?! Omöjligt! 😱' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.webp', text: 'H-hur kunde du besegra min Meowth?!' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Jag sa ju att min mattekraft är stark!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.webp', text: 'D-detta är inte över! Team Rocket kommer tillbaka!' },
+                    { speaker: 'GRANSEN', image: 'Boss1_TR_lost.webp', text: '*springer iväg* 💨' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Ha! Det var det för Team Rocket! 😄' }
                 ],
                 catchable: false,
                 evolutionAfter: true
@@ -4590,8 +4598,8 @@
                 min2: 1, max2: 2,
                 hitsNeeded: 3,
                 pokemonOptions: [
-                    { emoji: '🦇', name: 'ZUBAT', image: 'Zubat.png' },
-                    { emoji: '🦅', name: 'HAWLUCHA', image: 'Hawlucha.png' }
+                    { emoji: '🦇', name: 'ZUBAT', image: 'Zubat.webp' },
+                    { emoji: '🦅', name: 'HAWLUCHA', image: 'Hawlucha.webp' }
                 ],
                 points: 130,
                 catchable: true
@@ -4604,8 +4612,8 @@
                 min2: 1, max2: 3,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '🐍', name: 'EKANS', image: 'Ekans.png' },
-                    { emoji: '🪨', name: 'ONIX', image: 'Onix.png' }
+                    { emoji: '🐍', name: 'EKANS', image: 'Ekans.webp' },
+                    { emoji: '🪨', name: 'ONIX', image: 'Onix.webp' }
                 ],
                 points: 150,
                 catchable: true,
@@ -4619,8 +4627,8 @@
                 min2: 2, max2: 4,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '💀', name: 'KOFFING', image: 'Koffing.png' },
-                    { emoji: '😴', name: 'SNORLAX', image: 'Snorlax.png' }
+                    { emoji: '💀', name: 'KOFFING', image: 'Koffing.webp' },
+                    { emoji: '😴', name: 'SNORLAX', image: 'Snorlax.webp' }
                 ],
                 points: 170,
                 catchable: true
@@ -4633,9 +4641,9 @@
                 min2: 2, max2: 5,
                 hitsNeeded: 4,
                 pokemonOptions: [
-                    { emoji: '👻', name: 'GASTLY', image: 'Gastly.png' },
-                    { emoji: '👾', name: 'GENGAR', image: 'Gengar.png' },
-                    { emoji: '🐉', name: 'NOIVERN', image: 'Noivern.png' }
+                    { emoji: '👻', name: 'GASTLY', image: 'Gastly.webp' },
+                    { emoji: '👾', name: 'GENGAR', image: 'Gengar.webp' },
+                    { emoji: '🐉', name: 'NOIVERN', image: 'Noivern.webp' }
                 ],
                 points: 190,
                 catchable: true,
@@ -4648,11 +4656,11 @@
                 min1: 5, max1: 12,
                 min2: 2, max2: 6,
                 hitsNeeded: 5,
-                pokemon: { emoji: '🦑', name: 'TENTACOOL', image: 'Tentacool.png' },
+                pokemon: { emoji: '🦑', name: 'TENTACOOL', image: 'Tentacool.webp' },
                 points: 300,
                 isBoss: true,
                 isEllen: true,
-                bossImage: 'trainer_Ellen.png',
+                bossImage: 'trainer_Ellen.webp',
                 bossName: 'ELLEN',
                 bossTheme: 'boss-battle-ellen',
                 bossTaunts: [
@@ -4664,22 +4672,22 @@
                     "Min Tentacool, kämpa på!"
                 ],
                 bossDialogs: [
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Hej där! Du måste vara Liam från Kalmar! 😊' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Ja, det stämmer! Och du är...?' },
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Jag heter Ellen! Det här är min första turnering också!' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Spännande! Då får vi göra vårt bästa!' },
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Min Tentacool och jag har tränat jättehårt. Vi tänker inte förlora lätt! 💪' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Vi får se vem som har starkast mattekraft!' },
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Må bästa tränare vinna! Lycka till! 🍀' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.png', text: 'Tack, detsamma! Då kör vi! 💪' }
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Hej där! Du måste vara Liam från Kalmar! 😊' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Ja, det stämmer! Och du är...?' },
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Jag heter Ellen! Det här är min första turnering också!' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Spännande! Då får vi göra vårt bästa!' },
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Min Tentacool och jag har tränat jättehårt. Vi tänker inte förlora lätt! 💪' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Vi får se vem som har starkast mattekraft!' },
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Må bästa tränare vinna! Lycka till! 🍀' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.webp', text: 'Tack, detsamma! Då kör vi! 💪' }
                 ],
                 victoryDialogs: [
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Wow... du vann! Grattis Liam! 👏' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Tack Ellen! Det var en riktigt bra match!' },
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Din mattekraft är verkligen imponerande... 😊' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Du var också jätteduktig! Jag är säker på att du kommer bli en fantastisk Pokémon-tränare!' },
-                    { speaker: 'ELLEN', image: 'trainer_Ellen.png', text: 'Tack så mycket! 💕 Lycka till i resten av turneringen!' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Tack! Vi ses nästa gång! 👋' }
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Wow... du vann! Grattis Liam! 👏' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Tack Ellen! Det var en riktigt bra match!' },
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Din mattekraft är verkligen imponerande... 😊' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Du var också jätteduktig! Jag är säker på att du kommer bli en fantastisk Pokémon-tränare!' },
+                    { speaker: 'ELLEN', image: 'trainer_Ellen.webp', text: 'Tack så mycket! 💕 Lycka till i resten av turneringen!' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Tack! Vi ses nästa gång! 👋' }
                 ],
                 catchable: false,
                 roadToFinalsAfter: true
@@ -4691,10 +4699,10 @@
                 min1: 4, max1: 12,
                 min2: 2, max2: 6,
                 hitsNeeded: 6,
-                pokemon: { emoji: '🦉', name: 'NOCTOWL', image: 'Noctowl.png' },
+                pokemon: { emoji: '🦉', name: 'NOCTOWL', image: 'Noctowl.webp' },
                 points: 500,
                 isBoss: true,
-                bossImage: 'Boss2_Giovanni.png',
+                bossImage: 'Boss2_Giovanni.webp',
                 bossName: 'GIOVANNI',
                 bossTheme: 'boss-battle-2',
                 bossTaunts: [
@@ -4706,32 +4714,32 @@
                     "Verkligen stark mattekraft!"
                 ],
                 bossDialogs: [
-                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.png', text: '🏆 Välkommen till FINALEN av Småländska Regionmästerskapet!' },
-                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.png', text: 'Här möts två fantastiska tränare i den avgörande matchen!' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Så du är Liam...' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Jag har hört mycket om dig.' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Och du måste vara Giovanni!' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Jag har tränat Pokémon i de småländska skogarna i många år. 🌲' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'De säger att jag är den bästa tränaren väster om Växjö.' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Jag har kommit hela vägen hit för att vinna!' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Imponerande att du tog dig till finalen, unge man.' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Men min Noctowl och jag har aldrig förlorat. 🦉' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Då blir jag den första som besegrar er!' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Hm. Du har mod. Det gillar jag.' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Men har du tillräckligt med skicklighet?' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Du måste klara både addition OCH subtraktion...' },
-                    { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Jag är redo! Låt oss avgöra detta!' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Må den bästa vinna, Liam! 🤝' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.png', text: 'Då kör vi! 💪' }
+                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.webp', text: '🏆 Välkommen till FINALEN av Småländska Regionmästerskapet!' },
+                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.webp', text: 'Här möts två fantastiska tränare i den avgörande matchen!' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Så du är Liam...' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Jag har hört mycket om dig.' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Och du måste vara Giovanni!' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Jag har tränat Pokémon i de småländska skogarna i många år. 🌲' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'De säger att jag är den bästa tränaren väster om Växjö.' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Jag har kommit hela vägen hit för att vinna!' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Imponerande att du tog dig till finalen, unge man.' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Men min Noctowl och jag har aldrig förlorat. 🦉' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Då blir jag den första som besegrar er!' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Hm. Du har mod. Det gillar jag.' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Men har du tillräckligt med skicklighet?' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Du måste klara både addition OCH subtraktion...' },
+                    { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Jag är redo! Låt oss avgöra detta!' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Må den bästa vinna, Liam! 🤝' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_bossfight.webp', text: 'Då kör vi! 💪' }
                 ],
                 victoryDialogs: [
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: '...' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Otroligt. Du besegrade oss.' },
-                    { speaker: 'LIAM', image: 'Liam_trainer_happy.png', text: 'Ja! Vi gjorde det! 🎉' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Jag har aldrig mött en tränare med sådan mattekraft.' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Du förtjänar verkligen detta.' },
-                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.png', text: 'Grattis, Liam. Du är en värdig mästare. 🏆' },
-                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.png', text: '🎊 LIAM FRÅN KALMAR ÄR SMÅLANDS NYA REGIONMÄSTARE! 🎊' }
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: '...' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Otroligt. Du besegrade oss.' },
+                    { speaker: 'LIAM', image: 'Liam_trainer_happy.webp', text: 'Ja! Vi gjorde det! 🎉' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Jag har aldrig mött en tränare med sådan mattekraft.' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Du förtjänar verkligen detta.' },
+                    { speaker: 'GIOVANNI', image: 'Boss2_Giovanni.webp', text: 'Grattis, Liam. Du är en värdig mästare. 🏆' },
+                    { speaker: 'PRESENTATÖR', image: 'combat_presenter.webp', text: '🎊 LIAM FRÅN KALMAR ÄR SMÅLANDS NYA REGIONMÄSTARE! 🎊' }
                 ],
                 catchable: false
             }
@@ -4805,42 +4813,42 @@
             { 
                 name: 'MEW', 
                 emoji: '💫', 
-                image: 'Mew.png',
+                image: 'Mew.webp',
                 description: 'Den legendariska psykiska Pokémon!',
                 color: '#ffb6c1'
             },
             { 
                 name: 'CELEBI', 
                 emoji: '🌿', 
-                image: 'Celebi.png',
+                image: 'Celebi.webp',
                 description: 'Skogsväktaren som reser i tiden!',
                 color: '#90ee90'
             },
             { 
                 name: 'JIRACHI', 
                 emoji: '⭐', 
-                image: 'Jirachi.png',
+                image: 'Jirachi.webp',
                 description: 'Önskestjärnan som uppfyller drömmar!',
                 color: '#fffacd'
             },
             { 
                 name: 'VICTINI', 
                 emoji: '🔥', 
-                image: 'Victini.png',
+                image: 'Victini.webp',
                 description: 'Seger-Pokémon som ger lycka!',
                 color: '#ffa500'
             },
             { 
                 name: 'ARTICUNO', 
                 emoji: '🧊', 
-                image: 'Articuno.png',
+                image: 'Articuno.webp',
                 description: 'Den legendariska isfågeln från Kanto!',
                 color: '#87ceeb'
             },
             { 
                 name: 'VOLCANION', 
                 emoji: '🌋', 
-                image: 'Volcanion.png',
+                image: 'Volcanion.webp',
                 description: 'Den mytiska eld- och vattenPokémon!',
                 color: '#dc143c'
             }
@@ -4900,7 +4908,7 @@
                 multiplier: 2,
                 min1: 1, max1: 5,
                 hitsNeeded: 4,
-                pokemon: { emoji: '🌟', name: 'STARYU', image: 'Staryu.png' },
+                pokemon: { emoji: '🌟', name: 'STARYU', image: 'Staryu.webp' },
                 points: 200,
                 catchable: true
             },
@@ -4911,7 +4919,7 @@
                 multiplier: 5,
                 min1: 1, max1: 5,
                 hitsNeeded: 4,
-                pokemon: { emoji: '🦀', name: 'KRABBY', image: 'Krabby.png' },
+                pokemon: { emoji: '🦀', name: 'KRABBY', image: 'Krabby.webp' },
                 points: 250,
                 catchable: true,
                 evolution2After: true
@@ -4923,7 +4931,7 @@
                 multiplier: 10,
                 min1: 1, max1: 10,
                 hitsNeeded: 5,
-                pokemon: { emoji: '🐙', name: 'OCTILLERY', image: 'Octillery.png' },
+                pokemon: { emoji: '🐙', name: 'OCTILLERY', image: 'Octillery.webp' },
                 points: 300,
                 catchable: true
             },
@@ -4934,7 +4942,7 @@
                 min1: 1, max1: 10,
                 min2: 2, max2: 5,
                 hitsNeeded: 6,
-                pokemon: { emoji: '🐲', name: 'DRAGONAIR', image: 'Dragonair.png' },
+                pokemon: { emoji: '🐲', name: 'DRAGONAIR', image: 'Dragonair.webp' },
                 points: 400,
                 catchable: false,
                 isFinalBonus: true
@@ -5003,9 +5011,10 @@
             MUSIC.catch.loop = false;
             MUSIC.evolve.loop = false;
 
-            // Set volumes
-            Object.values(MUSIC).forEach(track => {
+            // Set volumes; only the intro loads up front, other tracks load when first played
+            Object.entries(MUSIC).forEach(([name, track]) => {
                 track.volume = 0.5;
+                track.preload = name === 'intro' ? 'auto' : 'none';
             });
         }
 
@@ -5151,7 +5160,7 @@
                 ball.className = 'floating-pokeball';
                 // Mix of real pokeball images and colored circles
                 if (i % 3 === 0) {
-                    ball.innerHTML = '<img src="Pokeball.png" alt="">';
+                    ball.innerHTML = '<img src="Pokeball.webp" alt="">';
                 } else {
                     ball.textContent = ['🔴', '⚪', '🟡'][i % 3];
                 }
@@ -5317,10 +5326,10 @@
             const liamImage = document.getElementById('liamBattleImage');
             if (liamImage) {
                 if (level.isBoss) {
-                    liamImage.src = 'Liam_trainer_bossfight.png';
+                    liamImage.src = 'Liam_trainer_bossfight.webp';
                     liamImage.style.animation = 'bossTrainerPose 0.8s ease-in-out infinite';
                 } else {
-                    liamImage.src = 'Liam_trainer.png';
+                    liamImage.src = 'Liam_trainer.webp';
                     liamImage.style.animation = 'trainerIdle 2s ease-in-out infinite';
                 }
             }
@@ -5859,7 +5868,7 @@
                 </div>
                 <div class="catch-arrow">⬆️</div>
                 <div class="catch-drag-ball" id="catchDragBall">
-                    <img src="Pokeball.png" alt="Pokéball">
+                    <img src="Pokeball.webp" alt="Pokéball">
                 </div>
                 <div class="catch-drag-hint">👆 DRA BOLLEN UPPÅT!</div>
                 <div class="catch-desktop-hint">💻 Desktop: tryck MELLANSLAG</div>
@@ -6071,7 +6080,7 @@
             const ball = document.createElement('div');
             ball.className = 'pokeball-throwing';
             ball.id = 'throwingBall';
-            ball.innerHTML = '<img src="Pokeball.png" alt="Pokéball">';
+            ball.innerHTML = '<img src="Pokeball.webp" alt="Pokéball">';
             document.body.appendChild(ball);
             
             // After throw animation, show hit
@@ -6094,7 +6103,7 @@
             const ball = document.createElement('div');
             ball.className = 'pokeball-wobble';
             ball.id = 'wobbleBall';
-            ball.innerHTML = '<img src="Pokeball.png" alt="Pokéball">';
+            ball.innerHTML = '<img src="Pokeball.webp" alt="Pokéball">';
             document.body.appendChild(ball);
             
             // Play heartbeat
@@ -6271,7 +6280,7 @@
             // Show pokeball opening (using open pokeball image)
             const openBall = document.createElement('div');
             openBall.className = 'pokeball-open';
-            openBall.innerHTML = '<img src="Pokeball_open.png" alt="Öppen Pokéball">';
+            openBall.innerHTML = '<img src="Pokeball_open.webp" alt="Öppen Pokéball">';
             document.body.appendChild(openBall);
             
             setTimeout(() => {
@@ -6326,12 +6335,12 @@
         // Play catch sound effects
         function playCatchSound(type) {
             const soundFiles = {
-                'thud': 'catch_thud.wav',
+                'thud': 'catch_thud.mp3',
                 'ping': 'catch_ping.mp3',
                 'throw': 'catch_throw.mp3',
                 'hit': 'catch_hit.mp3',
                 'wobble': 'catch_wobble.mp3',
-                'heartbeat': 'catch_heartbeat.wav',
+                'heartbeat': 'catch_heartbeat.mp3',
                 'success': 'catch_success.mp3',
                 'fail': 'catch_fail.mp3'
             };
@@ -6453,16 +6462,16 @@
         // Professor Ek dialog state
         let professorDialogState = {
             dialogs: [
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'Ah, välkommen Liam! Jag har väntat på dig! 😊' },
-                { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Hej Professor Ek! Jag är redo för mitt äventyr!' },
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'Utmärkt! Du vet väl om det stora Pokémon-mästerskapet i Vissefjärda? 🏆' },
-                { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Ja! Jag drömmer om att delta! Vad krävs för att vara med?' },
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'Du måste träna din MATTEKRAFT! Addition och subtraktion är nyckeln till att vinna strider.' },
-                { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Mattekraft? Hur fungerar det?' },
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'När du räknar rätt får din Pokémon kraft att attackera! Ju fler rätt i rad, desto starkare attacker! 🔥' },
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'Men först behöver du en partner-Pokémon. Jag har fem stycken här som letar efter en tränare...' },
-                { speaker: 'LIAM', image: 'Liam_dialog.png', text: 'Åh, vilka är det? 😃' },
-                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.png', text: 'Kom, så får du se! Välj den som känns rätt för dig!' }
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'Ah, välkommen Liam! Jag har väntat på dig! 😊' },
+                { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Hej Professor Ek! Jag är redo för mitt äventyr!' },
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'Utmärkt! Du vet väl om det stora Pokémon-mästerskapet i Vissefjärda? 🏆' },
+                { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Ja! Jag drömmer om att delta! Vad krävs för att vara med?' },
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'Du måste träna din MATTEKRAFT! Addition och subtraktion är nyckeln till att vinna strider.' },
+                { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Mattekraft? Hur fungerar det?' },
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'När du räknar rätt får din Pokémon kraft att attackera! Ju fler rätt i rad, desto starkare attacker! 🔥' },
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'Men först behöver du en partner-Pokémon. Jag har fem stycken här som letar efter en tränare...' },
+                { speaker: 'LIAM', image: 'Liam_dialog.webp', text: 'Åh, vilka är det? 😃' },
+                { speaker: 'PROFESSOR EK', image: 'Professor_Ek.webp', text: 'Kom, så får du se! Välj den som känns rätt för dig!' }
             ],
             currentIndex: 0
         };
@@ -6957,11 +6966,11 @@
             if (!selected) return [];
             
             const starterData = {
-                'riolu': { base: { emoji: '🐕', name: 'RIOLU', image: 'Riolu.png' }, evo1: { emoji: '🦊', name: 'LUCARIO', image: 'Lucario.png' } },
-                'charmander': { base: { emoji: '🦎', name: 'CHARMANDER', image: 'Charmander.png' }, evo1: { emoji: '🔥', name: 'CHARMELEON', image: 'Charmeleon.png' } },
-                'squirtle': { base: { emoji: '🐢', name: 'SQUIRTLE', image: 'Squirtle.png' }, evo1: { emoji: '🐢', name: 'WARTORTLE', image: 'Wartortle.png' } },
-                'froakie': { base: { emoji: '🐸', name: 'FROAKIE', image: 'Froakie.png' }, evo1: { emoji: '🐸', name: 'FROGADIER', image: 'Frogadier.png' } },
-                'pichu': { base: { emoji: '🐭', name: 'PICHU', image: 'Pichu.png' }, evo1: { emoji: '⚡', name: 'PIKACHU', image: 'Pikachu.png' } }
+                'riolu': { base: { emoji: '🐕', name: 'RIOLU', image: 'Riolu.webp' }, evo1: { emoji: '🦊', name: 'LUCARIO', image: 'Lucario.webp' } },
+                'charmander': { base: { emoji: '🦎', name: 'CHARMANDER', image: 'Charmander.webp' }, evo1: { emoji: '🔥', name: 'CHARMELEON', image: 'Charmeleon.webp' } },
+                'squirtle': { base: { emoji: '🐢', name: 'SQUIRTLE', image: 'Squirtle.webp' }, evo1: { emoji: '🐢', name: 'WARTORTLE', image: 'Wartortle.webp' } },
+                'froakie': { base: { emoji: '🐸', name: 'FROAKIE', image: 'Froakie.webp' }, evo1: { emoji: '🐸', name: 'FROGADIER', image: 'Frogadier.webp' } },
+                'pichu': { base: { emoji: '🐭', name: 'PICHU', image: 'Pichu.webp' }, evo1: { emoji: '⚡', name: 'PIKACHU', image: 'Pikachu.webp' } }
             };
             
             const result = [];
@@ -7920,7 +7929,7 @@
         function showPokeballCatch() {
             const pokeball = document.createElement('div');
             pokeball.className = 'pokeball-catch';
-            pokeball.innerHTML = '<img src="Pokeball.png" alt="Pokéball">';
+            pokeball.innerHTML = '<img src="Pokeball.webp" alt="Pokéball">';
             document.body.appendChild(pokeball);
             
             setTimeout(() => pokeball.remove(), 1500);
@@ -8027,7 +8036,7 @@
                 const liamDiv = document.createElement('div');
                 liamDiv.className = 'pokemon-entry caught';
                 liamDiv.innerHTML = `
-                    <img src="Liam_trainer.png" alt="Liam" style="width: 50px; height: 50px; object-fit: cover; object-position: top; border-radius: 50%;">
+                    <img src="Liam_trainer.webp" alt="Liam" style="width: 50px; height: 50px; object-fit: cover; object-position: top; border-radius: 50%;">
                     <div class="name">LIAM</div>
                 `;
                 partnerSection.appendChild(liamDiv);
@@ -8485,6 +8494,16 @@
             alert('Spelet har sparats! 💾');
         }
 
+        // Saves made before the switch to WebP still point at .png/.jpeg files
+        function migrateImagePaths(value) {
+            if (typeof value === 'string') return value.replace(/^([A-Za-z0-9_]+)\.(png|jpe?g)$/i, '$1.webp');
+            if (Array.isArray(value)) return value.map(migrateImagePaths);
+            if (value && typeof value === 'object') {
+                for (const k of Object.keys(value)) value[k] = migrateImagePaths(value[k]);
+            }
+            return value;
+        }
+
         // Load saved game from localStorage
         function loadGame() {
             const saveDataStr = localStorage.getItem('pokemonMathSave');
@@ -8494,7 +8513,7 @@
             }
             
             try {
-                const saveData = JSON.parse(saveDataStr);
+                const saveData = migrateImagePaths(JSON.parse(saveDataStr));
                 
                 // Restore selected Pokemon
                 if (saveData.gameState.selectedPokemonId) {
@@ -8542,7 +8561,7 @@
             if (!saveDataStr) return null;
             
             try {
-                const saveData = JSON.parse(saveDataStr);
+                const saveData = migrateImagePaths(JSON.parse(saveDataStr));
                 const pokemon = STARTER_POKEMON.find(p => p.id === saveData.gameState.selectedPokemonId);
                 return {
                     level: saveData.gameState.currentLevel + 1,
@@ -9154,6 +9173,20 @@
         initNumpad();
         initSpeech();
         initIdleNudge();
+
+        // Offline support: cache the game so it works without internet
+        if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    // After a while, fetch the long music tracks in the background (not on "save data")
+                    setTimeout(() => {
+                        const saveData = navigator.connection && navigator.connection.saveData;
+                        const worker = navigator.serviceWorker.controller || reg.active;
+                        if (worker && !saveData) worker.postMessage({ type: 'warm-media' });
+                    }, 20000);
+                }).catch(err => console.log('Service worker failed:', err));
+            });
+        }
     </script>
 </body>
 </html>
