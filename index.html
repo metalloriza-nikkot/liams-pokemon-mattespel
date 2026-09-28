@@ -5905,7 +5905,8 @@
                     // Reset catch state
                     catchState = { active: false, startTime: null, hitsNeeded: 0, pokemon: null, attempts: 0, isBonus: false };
                     
-                    updateUI();
+                    // Only update score - updateUI() uses LEVELS and crashes in master mode
+                    document.getElementById('totalScore').textContent = gameState.score;
                     
                     // Show level complete, then continue bonus mode
                     showScreen('levelCompleteScreen');
