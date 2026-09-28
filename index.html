@@ -3217,6 +3217,35 @@
             .hint-count { font-size: 1.1rem; margin-top: 6px; }
         }
 
+
+        /* ===== Hjälp-påminnelse ===== */
+        .hint-btn { display: block; margin: 8px auto 0; }
+        .hint-btn.nudge {
+            font-size: 1.1rem;
+            padding: 10px 26px;
+            animation: hintNudge 0.9s ease-in-out infinite;
+        }
+        @keyframes hintNudge {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(243, 156, 18, 0.5); }
+            50% { transform: scale(1.12); box-shadow: 0 0 26px rgba(243, 156, 18, 0.9); }
+        }
+
+        /* ===== Hörnknappar i strid på mobil ===== */
+        .battle-toolbar { display: none; }
+        .compact-battle-buttons .battle-toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 4px 0 12px;
+        }
+        .battle-toolbar > button {
+            position: static !important;
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 1.1rem !important;
+            opacity: 0.85;
+        }
+
         /* === TELEFON LAYOUT (< 500px) === */
         @media (max-width: 500px) {
             /* Dölj titel under strid */
@@ -3888,6 +3917,7 @@
                         </div>
                     </div>
                     <div class="hint-display" id="hintDisplay" style="display: none;"></div>
+                    <button class="hint-btn" id="hintBtn" onclick="showHint()" style="display: none;">💡 HJÄLP</button>
                     <!-- Numeric keypad for touch devices -->
                     <div class="numpad-container" id="numpadContainer">
                         <div class="numpad-row">
@@ -3909,10 +3939,10 @@
                             <button class="numpad-btn action-btn enter-btn" onclick="numpadEnter()">✓</button>
                         </div>
                     </div>
-                    <button class="hint-btn" id="hintBtn" onclick="showHint()" style="display: none;">💡 HJÄLP</button>
                     <div class="attack-feedback" id="attackFeedback"></div>
                     <div class="streak-indicator" id="streakIndicator"></div>
                 </div>
+                <div class="battle-toolbar" id="battleToolbar"></div>
             </div>
         </div>
 
@@ -4272,7 +4302,7 @@
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🔊</button>
 
     <!-- Settings button -->
-    <button class="settings-btn" onclick="openParentMode()">⚙️</button>
+    <button class="settings-btn" id="settingsBtn" onclick="openParentMode()">⚙️</button>
     
     <!-- Read-aloud repeat button -->
     <button class="speak-btn" id="speakBtn" onclick="repeatSpeech()" aria-label="Läs upp igen">🗣️</button>
@@ -5114,6 +5144,7 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             onScreenShownForSpeech(screenId);
+            placeCornerButtons(screenId);
             
             // Show/hide save button based on screen
             const saveBtn = document.getElementById('saveBtn');
@@ -5504,7 +5535,7 @@
 
                 // Show hint button after 2 wrong attempts on same problem
                 if (gameState.wrongOnCurrentProblem >= 2 && !gameState.hintUsed) {
-                    document.getElementById('hintBtn').style.display = 'inline-block';
+                    document.getElementById('hintBtn').style.display = 'block';
                 }
 
                 feedbackDiv.innerHTML = `
@@ -5596,6 +5627,7 @@
                 <button class="hint-reset" type="button">↺ Räkna igen</button>`;
             hintDisplay.style.display = 'block';
             document.getElementById('hintBtn').style.display = 'none';
+            document.getElementById('hintBtn').classList.remove('nudge');
             
             setupHintCounting(hintDisplay, operator, num2);
             speak(spoken);
@@ -7353,7 +7385,7 @@
                 gameState.wrongOnCurrentProblem++;
 
                 if (gameState.wrongOnCurrentProblem >= 2 && !gameState.hintUsed) {
-                    document.getElementById('hintBtn').style.display = 'inline-block';
+                    document.getElementById('hintBtn').style.display = 'block';
                 }
 
                 feedbackDiv.innerHTML = `
@@ -7698,7 +7730,7 @@
                 gameState.wrongOnCurrentProblem++;
 
                 if (gameState.wrongOnCurrentProblem >= 2 && !gameState.hintUsed) {
-                    document.getElementById('hintBtn').style.display = 'inline-block';
+                    document.getElementById('hintBtn').style.display = 'block';
                 }
 
                 feedbackDiv.innerHTML = `
@@ -8856,6 +8888,78 @@
             updateSpeakButton(active ? active.id : 'titleScreen');
         }
 
+
+        // ===== HÖRNKNAPPAR I STRID (MOBIL) =====
+        // On phones the fixed save/music/settings buttons covered the numpad.
+        // During battle they move into a small row under the math box instead.
+        const CORNER_BUTTON_IDS = ['saveBtn', 'musicBtn', 'settingsBtn'];
+        function placeCornerButtons(screenId) {
+            const bar = document.getElementById('battleToolbar');
+            if (!bar) return;
+            const active = screenId || (document.querySelector('.screen.active') || {}).id;
+            const compact = active === 'battleScreen' && window.matchMedia('(max-width: 500px)').matches;
+            CORNER_BUTTON_IDS.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (compact && el.parentElement !== bar) bar.appendChild(el);
+                if (!compact && el.parentElement !== document.body) document.body.appendChild(el);
+            });
+            document.body.classList.toggle('compact-battle-buttons', compact);
+        }
+        window.addEventListener('resize', () => placeCornerButtons());
+        window.addEventListener('orientationchange', () => setTimeout(placeCornerButtons, 300));
+
+        // ===== PÅMINNELSE NÄR LIAM FASTNAR =====
+        // Children who don't know an answer tend to sit quietly rather than guess.
+        // After a while without activity: read the problem again and light up HJÄLP.
+        const IDLE_NUDGE = { seconds: 20, idle: 0, nudged: false };
+
+        function resetIdleNudge() {
+            IDLE_NUDGE.idle = 0;
+            const btn = document.getElementById('hintBtn');
+            if (btn) btn.classList.remove('nudge');
+        }
+
+        function idleNudgeAllowed() {
+            if (!document.getElementById('battleScreen').classList.contains('active')) return false;
+            if (document.visibilityState === 'hidden') return false;
+            if (typeof catchState !== 'undefined' && catchState.active) return false;
+            if (gameState.isProcessing) return false;
+            if (document.querySelector('.modal-overlay.active, .catch-prompt')) return false;
+            if (ttsState.supported && speechSynthesis.speaking) return false;
+            return true;
+        }
+
+        function idleNudge() {
+            IDLE_NUDGE.nudged = true;
+            const hintDisplay = document.getElementById('hintDisplay');
+            const hintBtn = document.getElementById('hintBtn');
+            const hintOpen = hintDisplay && hintDisplay.style.display !== 'none';
+            if (hintOpen) {
+                speak(problemToSpeech() + ' Tryck på prickarna och räkna!');
+                return;
+            }
+            hintBtn.style.display = 'block';
+            hintBtn.classList.add('nudge');
+            speak(problemToSpeech() + ' Du kan trycka på hjälp.');
+        }
+
+        function initIdleNudge() {
+            ['pointerdown', 'keydown', 'touchstart'].forEach(ev =>
+                document.addEventListener(ev, resetIdleNudge, { capture: true, passive: true }));
+            // A new problem restarts the clock and allows a new reminder
+            const problemEl = document.getElementById('mathProblem');
+            if (problemEl && typeof MutationObserver !== 'undefined') {
+                new MutationObserver(() => { resetIdleNudge(); IDLE_NUDGE.nudged = false; })
+                    .observe(problemEl, { childList: true, characterData: true, subtree: true });
+            }
+            setInterval(() => {
+                if (!idleNudgeAllowed()) return; // pause, don't reset
+                IDLE_NUDGE.idle++;
+                if (!IDLE_NUDGE.nudged && IDLE_NUDGE.idle >= IDLE_NUDGE.seconds) idleNudge();
+            }, 1000);
+        }
+
         // Initialize
         loadStats();
         initBackground();
@@ -8863,6 +8967,7 @@
         updateContinueButton();
         initNumpad();
         initSpeech();
+        initIdleNudge();
     </script>
 </body>
 </html>
