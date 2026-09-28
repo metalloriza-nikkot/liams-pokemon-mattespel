@@ -3037,6 +3037,186 @@
             }
         }
 
+
+        /* ===== Uppläsning (talsyntes) ===== */
+        .speak-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--pokemon-yellow);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 50;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+        .speak-btn.visible { display: flex; }
+        .speak-btn:active { transform: scale(0.92); }
+        .speak-btn.speaking { animation: speakPulse 1s ease-in-out infinite; }
+        @keyframes speakPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 203, 5, 0.6); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 203, 5, 0); }
+        }
+
+        .problem-speak-btn {
+            background: transparent;
+            border: 2px solid var(--pokemon-yellow);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .tts-on .problem-speak-btn { display: flex; }
+        .problem-speak-btn:active { transform: scale(0.9); }
+
+        .tts-setting-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        .tts-setting-row input { width: 22px; height: 22px; }
+        .tts-voice-info { font-size: 0.8rem; opacity: 0.8; text-align: center; margin-top: 6px; }
+
+        /* ===== Ledtråd: prickar att räkna ===== */
+        .hint-display {
+            font-size: 1rem;
+            letter-spacing: normal;
+            text-align: center;
+        }
+        .hint-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .hint-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .hint-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 100%;
+        }
+        .hint-five { display: inline-flex; gap: 4px; flex-wrap: nowrap; }
+        .hint-plus {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--grass-green);
+            padding: 0 4px;
+        }
+        .hint-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #1a1a2e;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.6);
+            transition: transform 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .hint-dot.blue { background: #4a90e2; }
+        .hint-dot.yellow { background: var(--pokemon-yellow); }
+        .hint-dot.counted {
+            background: var(--grass-green);
+            color: #fff;
+            transform: scale(1.1);
+            border-color: #fff;
+        }
+        .hint-dot.gone {
+            background: transparent;
+            border: 2px dashed rgba(255,255,255,0.4);
+            cursor: default;
+            position: relative;
+        }
+        .hint-dot.gone::after {
+            content: '✕';
+            color: #e74c3c;
+            font-size: 1rem;
+        }
+        .hint-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .hint-group .hint-dot { width: 14px; height: 14px; border-width: 1px; cursor: pointer; }
+        .hint-group .hint-five { gap: 2px; }
+        .hint-group.counted { border-color: var(--grass-green); background: rgba(76, 175, 80, 0.25); }
+        .hint-group.counted .hint-dot { background: var(--grass-green); }
+        .hint-group-label {
+            position: absolute;
+            top: -10px;
+            right: -8px;
+            background: var(--grass-green);
+            color: #fff;
+            border-radius: 10px;
+            padding: 1px 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .hint-count {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.4rem;
+            color: var(--pokemon-yellow);
+            min-height: 1.6rem;
+            margin-top: 10px;
+        }
+        .hint-reset {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: #fff;
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+        @media (max-width: 500px) {
+            .hint-display { padding: 8px; margin: 6px 0; }
+            .hint-title { font-size: 0.85rem; margin-bottom: 6px; }
+            .hint-dot { width: 26px; height: 26px; font-size: 0.75rem; }
+            .hint-group .hint-dot { width: 12px; height: 12px; }
+            .hint-group { padding: 4px 6px; }
+            .hint-count { font-size: 1.1rem; margin-top: 6px; }
+        }
+
         /* === TELEFON LAYOUT (< 500px) === */
         @media (max-width: 500px) {
             /* Dölj titel under strid */
@@ -3695,6 +3875,7 @@
                     <div class="problem-label">⚡ MATTEKRAFT-ATTACK ⚡</div>
                     <div class="math-problem-row">
                         <div class="math-problem" id="mathProblem">5 + 3 =</div>
+                        <button class="problem-speak-btn" onclick="speakProblem()" aria-label="Läs upp talet">🗣️</button>
                         <div class="answer-section">
                             <input 
                                 type="number" 
@@ -4037,6 +4218,18 @@
                     </div>
                 </div>
 
+                <div class="parent-stat-card">
+                    <div class="parent-stat-title">🗣️ Uppläsning</div>
+                    <label class="tts-setting-row">
+                        <input type="checkbox" id="ttsToggle" onchange="setTTSEnabled(this.checked)">
+                        Läs upp berättelser, dialoger och mattetal
+                    </label>
+                    <div class="tts-setting-row">
+                        <button class="btn btn-blue" onclick="speak('Hej Liam! Så här låter jag när jag läser för dig.')">TESTA RÖSTEN</button>
+                    </div>
+                    <div class="tts-voice-info" id="ttsVoiceInfo"></div>
+                </div>
+
                 <div class="parent-actions">
                     <button class="btn btn-blue" onclick="closeParentMode()">STÄNG</button>
                     <button class="btn btn-yellow" onclick="restartAdventure()">STARTA OM ÄVENTYR</button>
@@ -4081,6 +4274,9 @@
     <!-- Settings button -->
     <button class="settings-btn" onclick="openParentMode()">⚙️</button>
     
+    <!-- Read-aloud repeat button -->
+    <button class="speak-btn" id="speakBtn" onclick="repeatSpeech()" aria-label="Läs upp igen">🗣️</button>
+
     <!-- Save button -->
     <button class="save-btn" id="saveBtn" onclick="saveGame()" style="display: none;">💾</button>
 
@@ -4766,6 +4962,7 @@
             
             musicState.started = true;
             document.getElementById('musicStartOverlay').classList.add('hidden');
+            primeSpeech();
             
             // Start with intro music
             playMusic('intro');
@@ -4916,6 +5113,7 @@
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            onScreenShownForSpeech(screenId);
             
             // Show/hide save button based on screen
             const saveBtn = document.getElementById('saveBtn');
@@ -4968,6 +5166,7 @@
 
             gameState.selectedPokemon = STARTER_POKEMON.find(p => p.id === pokemonId);
             document.getElementById('confirmBtn').style.display = 'inline-block';
+            speak(gameState.selectedPokemon.name, { noRepeat: true });
         }
 
         // Confirm selection and start game
@@ -5354,52 +5553,95 @@
             const num2 = gameState.currentNum2;
             const operator = gameState.currentOperator;
             
-            let hintHtml = '';
-            
-            if (operator === 'addition') {
-                // Show dots for addition
-                const dots1 = '🔵'.repeat(Math.min(num1, 12));
-                const dots2 = '🟡'.repeat(Math.min(num2, 12));
-                hintHtml = `
-                    <div style="margin-bottom: 10px;">Räkna alla prickar!</div>
-                    <div>${dots1} + ${dots2}</div>
-                    <div style="margin-top: 5px; font-size: 1rem;">= ${num1 + num2} totalt</div>
-                `;
-            } else if (operator === 'subtraction') {
-                // Show dots for subtraction
-                const remaining = num1 - num2;
-                const dotsRemaining = '🔵'.repeat(Math.min(remaining, 12));
-                const dotsCrossed = '❌'.repeat(Math.min(num2, 12));
-                hintHtml = `
-                    <div style="margin-bottom: 10px;">Ta bort ${num2} från ${num1}!</div>
-                    <div>${dotsRemaining}${dotsCrossed}</div>
-                    <div style="margin-top: 5px; font-size: 1rem;">= ${remaining} kvar</div>
-                `;
-            } else if (operator === 'multiplication') {
-                // Show groups for multiplication
-                const answer = num1 * num2;
-                let groupsHtml = '';
-                const maxGroups = Math.min(num1, 5);
-                const maxDots = Math.min(num2, 10);
-                
-                for (let i = 0; i < maxGroups; i++) {
-                    groupsHtml += '🔵'.repeat(maxDots) + (i < maxGroups - 1 ? ' + ' : '');
+            // Dots are drawn in groups of five so they are easy to see at a glance.
+            // The answer is never printed - Liam counts by tapping.
+            function dotRow(count, cls, goneFrom = Infinity) {
+                let html = '';
+                for (let i = 0; i < count; i++) {
+                    if (i % 5 === 0) html += '<span class="hint-five">';
+                    const gone = i >= goneFrom;
+                    html += `<span class="hint-dot ${gone ? 'gone' : cls}"></span>`;
+                    if (i % 5 === 4 || i === count - 1) html += '</span>';
                 }
-                
-                if (num1 > 5) {
-                    groupsHtml += ' + ...';
-                }
-                
-                hintHtml = `
-                    <div style="margin-bottom: 10px;">${num1} grupper med ${num2} i varje!</div>
-                    <div style="font-size: 0.9rem;">${groupsHtml}</div>
-                    <div style="margin-top: 5px; font-size: 1rem;">= ${answer} totalt</div>
-                `;
+                return html;
             }
             
-            hintDisplay.innerHTML = hintHtml;
+            let title = '';
+            let spoken = '';
+            let body = '';
+            
+            if (operator === 'addition') {
+                title = 'Tryck på prickarna och räkna alla!';
+                spoken = `Du har ${num1} blå och ${num2} ${num2 === 1 ? 'gul' : 'gula'}. Tryck på prickarna och räkna alla!`;
+                body = `
+                    <div class="hint-row">${dotRow(num1, 'blue')}</div>
+                    <div class="hint-plus">+</div>
+                    <div class="hint-row">${dotRow(num2, 'yellow')}</div>`;
+            } else if (operator === 'subtraction') {
+                title = `${num2} har försvunnit. Räkna de som är kvar!`;
+                spoken = `Du har ${num1}. ${num2} har försvunnit. Tryck och räkna de som är kvar!`;
+                body = `<div class="hint-row">${dotRow(num1, 'blue', num1 - num2)}</div>`;
+            } else if (operator === 'multiplication') {
+                title = `${num1} grupper med ${num2} i varje. Tryck på grupperna!`;
+                spoken = `${num1} grupper med ${num2} i varje. Tryck på en grupp i taget och hoppräkna!`;
+                for (let g = 0; g < num1; g++) {
+                    body += `<div class="hint-group">${dotRow(num2, 'blue')}</div>`;
+                }
+            }
+            
+            hintDisplay.innerHTML = `
+                <div class="hint-title">${title}</div>
+                <div class="hint-area">${body}</div>
+                <div class="hint-count" id="hintCount"></div>
+                <button class="hint-reset" type="button">↺ Räkna igen</button>`;
             hintDisplay.style.display = 'block';
             document.getElementById('hintBtn').style.display = 'none';
+            
+            setupHintCounting(hintDisplay, operator, num2);
+            speak(spoken);
+        }
+        
+        // Tap-to-count for the hint dots (one by one, or group by group for multiplication)
+        function setupHintCounting(container, operator, groupSize) {
+            let total = 0;
+            const countEl = container.querySelector('#hintCount');
+            
+            function say(n) {
+                countEl.textContent = n;
+                speak(String(n), { noRepeat: true, rate: 1.1 });
+            }
+            
+            if (operator === 'multiplication') {
+                container.querySelectorAll('.hint-group').forEach(group => {
+                    group.addEventListener('click', () => {
+                        if (group.classList.contains('counted')) return;
+                        total += groupSize;
+                        group.classList.add('counted');
+                        group.insertAdjacentHTML('beforeend', `<span class="hint-group-label">${total}</span>`);
+                        say(total);
+                    });
+                });
+            } else {
+                container.querySelectorAll('.hint-dot:not(.gone)').forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        if (dot.classList.contains('counted')) return;
+                        total += 1;
+                        dot.classList.add('counted');
+                        dot.textContent = total;
+                        say(total);
+                    });
+                });
+            }
+            
+            container.querySelector('.hint-reset').addEventListener('click', () => {
+                total = 0;
+                countEl.textContent = '';
+                container.querySelectorAll('.counted').forEach(el => {
+                    el.classList.remove('counted');
+                    if (el.classList.contains('hint-dot')) el.textContent = '';
+                });
+                container.querySelectorAll('.hint-group-label').forEach(el => el.remove());
+            });
         }
 
         // Check streak achievements
@@ -5567,6 +5809,7 @@
                 <div class="catch-desktop-hint">💻 Desktop: tryck MELLANSLAG</div>
             `;
             document.body.appendChild(prompt);
+            speak(isTouchDevice() ? 'Fånga den! Dra bollen uppåt!' : 'Fånga den! Tryck på mellanslag!', { noRepeat: true });
             
             // Setup drag handlers
             setupCatchDrag();
@@ -6200,6 +6443,7 @@
             imageElement.src = currentDialog.image;
             nameElement.textContent = currentDialog.speaker;
             textElement.textContent = '';
+            speak(currentDialog.text);
             
             let charIndex = 0;
             const typeSpeed = 30;
@@ -6323,6 +6567,7 @@
             imageElement.src = currentDialog.image;
             nameElement.textContent = currentDialog.speaker;
             textElement.textContent = '';
+            speak(currentDialog.text);
             
             let charIndex = 0;
             const typeSpeed = 30;
@@ -6520,6 +6765,7 @@
             // Clear and animate text
             const textElement = document.getElementById('bossDialogText');
             textElement.textContent = '';
+            speak(text);
             
             let charIndex = 0;
             const typeSpeed = 30; // ms per character
@@ -7940,6 +8186,7 @@
 
         // Parent mode functions
         function openParentMode() {
+            updateTTSSettingsUI();
             document.getElementById('pinSection').style.display = 'block';
             document.getElementById('parentStats').classList.remove('active');
             document.getElementById('pinError').style.display = 'none';
@@ -8370,12 +8617,252 @@
             }
         }
 
+
+        // ===== UPPLÄSNING (TALSYNTES) =====
+        // Liam läser enstaka ord - allt berättande läses upp med webbläsarens svenska röst.
+        const ttsState = {
+            supported: typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined',
+            enabled: true,
+            voice: null,
+            lastText: '',
+            rate: 0.95,
+            unduckTimer: null
+        };
+        try {
+            if (localStorage.getItem('liamsTTS') === 'off') ttsState.enabled = false;
+        } catch (e) {}
+
+        // Screens with typewriter dialogs speak line by line from their own functions
+        const DIALOG_SCREENS = ['professorScreen', 'ellenIntroScreen', 'bossIntroScreen'];
+
+        // What to read aloud when a screen is shown
+        const SCREEN_NARRATION = {
+            levelCompleteScreen: '#catchTitle, .level-complete > p',
+            evolutionScreen: '.evolution-title, .evolution-screen > p',
+            evolution2Screen: '.evolution-title, .evolution-screen > p',
+            victoryScreen: '.victory-title, .victory-screen > p',
+            bonusVictoryScreen: '.victory-title, .victory-screen > p',
+            selectionScreen: '.selection-title',
+            dailyChallengeIntroScreen: 'h2, p',
+            dailyChallengeCompleteScreen: 'h2, p',
+            dailyChallengeDoneScreen: 'h2, p'
+        };
+
+        function pickSwedishVoice() {
+            if (!ttsState.supported) return;
+            const voices = speechSynthesis.getVoices().filter(v => /^sv/i.test(v.lang));
+            if (voices.length === 0) return;
+            const preferred = ['Alva', 'Klara', 'Google svenska', 'Oskar'];
+            ttsState.voice =
+                preferred.map(n => voices.find(v => v.name.includes(n) && !/compact/i.test(v.name))).find(Boolean) ||
+                voices.find(v => v.localService) ||
+                voices[0];
+        }
+        if (ttsState.supported) {
+            pickSwedishVoice();
+            if (speechSynthesis.addEventListener) {
+                speechSynthesis.addEventListener('voiceschanged', pickSwedishVoice);
+            } else {
+                speechSynthesis.onvoiceschanged = pickSwedishVoice;
+            }
+        }
+
+        // Turn display text into something a Swedish voice reads well
+        function prepareSpeech(text) {
+            return String(text || '')
+                .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}]/gu, ' ')
+                .replace(/(\d)\s*×\s*(\d)/g, '$1 gånger $2')
+                .replace(/(\d)\s*[−-]\s*(\d)/g, '$1 minus $2')
+                .replace(/(\d)\s*\+\s*(\d)/g, '$1 plus $2')
+                .replace(/(\d)\s*=\s*(\d)/g, '$1 är $2')
+                .replace(/[×]/g, ' gånger ')
+                .replace(/[+=]/g, ' ')
+                // ALL CAPS words would be spelled letter by letter - read them as words
+                .replace(/[A-Za-zÀ-ÖØ-öø-ÿ]+/g, w =>
+                    (w.length > 1 && w === w.toUpperCase() && w !== w.toLowerCase())
+                        ? w.charAt(0) + w.slice(1).toLowerCase()
+                        : w)
+                .replace(/\s*\n+\s*/g, '. ')
+                .replace(/\s+/g, ' ')
+                .replace(/([!?.])\s*\./g, '$1')
+                .replace(/(\.\s*){2,}/g, '. ')
+                .trim();
+        }
+
+        function duckMusic() {
+            document.getElementById('speakBtn')?.classList.add('speaking');
+            if (typeof MUSIC === 'undefined') return;
+            Object.values(MUSIC).forEach(t => { try { t.volume = 0.15; } catch (e) {} });
+        }
+
+        function unduckMusic() {
+            clearTimeout(ttsState.unduckTimer);
+            document.getElementById('speakBtn')?.classList.remove('speaking');
+            if (typeof MUSIC === 'undefined') return;
+            Object.values(MUSIC).forEach(t => { try { t.volume = 0.5; } catch (e) {} });
+        }
+
+        // speak(text, { noRepeat, queue, rate })
+        function speak(text, opts = {}) {
+            if (!ttsState.supported || !ttsState.enabled) return;
+            const clean = prepareSpeech(text);
+            if (!clean) return;
+            if (!opts.noRepeat) ttsState.lastText = text;
+            try {
+                if (!opts.queue) speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(clean);
+                u.lang = 'sv-SE';
+                if (ttsState.voice) u.voice = ttsState.voice;
+                u.rate = opts.rate || ttsState.rate;
+                u.pitch = 1.05;
+                u.onstart = duckMusic;
+                u.onend = unduckMusic;
+                u.onerror = unduckMusic;
+                speechSynthesis.speak(u);
+                // Safari does not always fire onend - restore music volume anyway
+                clearTimeout(ttsState.unduckTimer);
+                ttsState.unduckTimer = setTimeout(unduckMusic, 2500 + clean.length * 90);
+            } catch (e) {
+                console.log('Speech failed:', e);
+            }
+        }
+
+        function stopSpeaking() {
+            if (!ttsState.supported) return;
+            try { speechSynthesis.cancel(); } catch (e) {}
+            unduckMusic();
+        }
+
+        function repeatSpeech() {
+            if (ttsState.lastText) speak(ttsState.lastText);
+        }
+
+        // iOS only allows speech after a user gesture - warm it up on the first tap
+        function primeSpeech() {
+            if (!ttsState.supported || ttsState.primed) return;
+            ttsState.primed = true;
+            try {
+                const u = new SpeechSynthesisUtterance(' ');
+                u.volume = 0;
+                speechSynthesis.speak(u);
+            } catch (e) {}
+        }
+        document.addEventListener('click', primeSpeech, { once: true, capture: true });
+        document.addEventListener('touchend', primeSpeech, { once: true, capture: true });
+
+        function problemToSpeech() {
+            const a = gameState.currentNum1;
+            const b = gameState.currentNum2;
+            const words = { addition: 'plus', subtraction: 'minus', multiplication: 'gånger' };
+            const op = words[gameState.currentOperator];
+            if (a === undefined || b === undefined || !op) return '';
+            return `Vad är ${a} ${op} ${b}?`;
+        }
+
+        function speakProblem() {
+            const text = problemToSpeech();
+            if (text) speak(text);
+        }
+
+        function collectScreenText(screen, selector) {
+            const picked = [];
+            screen.querySelectorAll(selector).forEach(el => {
+                if (el.closest('.dialog-hint')) return;
+                if (el.offsetParent === null) return; // hidden
+                if (picked.some(p => p.contains(el))) return; // already included
+                picked.push(el);
+            });
+            return picked.map(el => el.innerText.trim()).filter(Boolean).join('. ');
+        }
+
+        function onScreenShownForSpeech(screenId) {
+            updateSpeakButton(screenId);
+            if (DIALOG_SCREENS.includes(screenId)) return; // dialog lines speak themselves
+            stopSpeaking();
+            ttsState.lastText = '';
+
+            if (screenId === 'battleScreen') {
+                // Read the first problem of each battle; later ones via the 🔊 button
+                setTimeout(() => {
+                    if (document.getElementById('battleScreen').classList.contains('active')) speakProblem();
+                }, 700);
+                return;
+            }
+
+            const screen = document.getElementById(screenId);
+            if (!screen) return;
+            const selector = SCREEN_NARRATION[screenId] || (screen.querySelector('.story-text') ? '.story-text' : null);
+            if (!selector) return;
+            setTimeout(() => {
+                if (!screen.classList.contains('active')) return;
+                const text = collectScreenText(screen, selector);
+                if (text) speak(text);
+            }, 350);
+        }
+
+        function updateSpeakButton(screenId) {
+            const btn = document.getElementById('speakBtn');
+            if (!btn) return;
+            const hideOn = ['titleScreen', 'battleScreen'];
+            const show = ttsState.supported && ttsState.enabled && !hideOn.includes(screenId);
+            btn.classList.toggle('visible', show);
+            document.body.classList.toggle('tts-on', ttsState.supported && ttsState.enabled);
+        }
+
+        function setTTSEnabled(on) {
+            ttsState.enabled = !!on;
+            try { localStorage.setItem('liamsTTS', on ? 'on' : 'off'); } catch (e) {}
+            if (!on) stopSpeaking();
+            const active = document.querySelector('.screen.active');
+            updateSpeakButton(active ? active.id : '');
+            updateTTSSettingsUI();
+        }
+
+        function updateTTSSettingsUI() {
+            const toggle = document.getElementById('ttsToggle');
+            const info = document.getElementById('ttsVoiceInfo');
+            if (toggle) {
+                toggle.checked = ttsState.enabled;
+                toggle.disabled = !ttsState.supported;
+            }
+            if (!info) return;
+            if (!ttsState.supported) {
+                info.textContent = 'Den här webbläsaren saknar uppläsning.';
+            } else {
+                pickSwedishVoice();
+                info.textContent = ttsState.voice
+                    ? `Röst: ${ttsState.voice.name}`
+                    : 'Ingen svensk röst hittades. På iPad: Inställningar → Hjälpmedel → Uppläst innehåll → Röster → Svenska.';
+            }
+        }
+
+        // Read feedback and boss taunts aloud when they appear
+        function watchForSpeech(elementId, opts) {
+            const el = document.getElementById(elementId);
+            if (!el || typeof MutationObserver === 'undefined') return;
+            let lastSpoken = '';
+            new MutationObserver(() => {
+                const text = el.innerText.trim();
+                const visible = el.style.display !== 'none';
+                if (text && visible && text !== lastSpoken) speak(text, opts);
+                lastSpoken = visible ? text : '';
+            }).observe(el, { childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+        }
+
+        function initSpeech() {
+            watchForSpeech('attackFeedback', { noRepeat: true });
+            watchForSpeech('bossTaunt', { noRepeat: true, queue: true });
+            const active = document.querySelector('.screen.active');
+            updateSpeakButton(active ? active.id : 'titleScreen');
+        }
+
         // Initialize
         loadStats();
         initBackground();
         updateDailyChallengeButton();
         updateContinueButton();
         initNumpad();
+        initSpeech();
     </script>
 </body>
 </html>
